@@ -13,9 +13,12 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var tipSelector: UITextField!
     @IBOutlet var tipAmountField: UITextField!
     @IBOutlet var totalAmountField: UITextField!
+    @IBOutlet weak var guests: UITextField!
     
+    @IBOutlet weak var ppp: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func didReceiveMemoryWarning() {
@@ -30,23 +33,33 @@ class FirstViewController: UIViewController {
             billAmountField.text = ""
             tipAmountField.text = ""
             totalAmountField.text = ""
+            self.guests.text = ""
             return
         }
         
-        var tipPercentage = Double.self
         
         
         
         let roundedBillAmount = round(100*billAmount)/100
-        let tipAmount = roundedBillAmount * Double(tipSelector.text!)!
+        let tipAmount = roundedBillAmount * Double(tipSelector.text!)!/100
         let roundedTipAmount = round(100*tipAmount)/100
         let totalAmount = roundedBillAmount + roundedTipAmount
-        
+        let guests = (totalAmount) / Double(self.guests.text!)!
         if (!billAmountField.editing) {
             billAmountField.text = String(format: "%.2f", roundedBillAmount)
         }
         tipAmountField.text = String(format: "%.2f", roundedTipAmount)
         totalAmountField.text = String(format: "%.2f", totalAmount)
+        ppp.text = String(format: "%.2f", guests)
     }
 }
-
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
