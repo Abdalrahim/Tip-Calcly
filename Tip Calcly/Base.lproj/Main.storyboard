@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atv-n1-2I2">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="266"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Guests:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="kxA-Va-8v3">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Guests:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="kxA-Va-8v3">
                                                 <rect key="frame" x="8" y="0.0" width="268" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="5Jr-xi-hLR"/>
@@ -41,7 +41,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Percentage:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5WP-Wu-TrA">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Percentage:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5WP-Wu-TrA">
                                                 <rect key="frame" x="8" y="68" width="268" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="268" id="Fm7-5J-bxt"/>
@@ -76,6 +76,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INp-8r-3mK">
                                                 <rect key="frame" x="0.0" y="228" width="560" height="30"/>
                                                 <color key="backgroundColor" red="0.58431372549019611" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Ndg-t5-re6"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Calculate">
                                                     <color key="titleColor" red="0.72549019607843135" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -116,7 +119,7 @@
                                                     </mask>
                                                 </variation>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill Amount:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3MI-Zd-KI2">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill Amount:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3MI-Zd-KI2">
                                                 <rect key="frame" x="8" y="136" width="268" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="268" id="EUv-Yc-AIo"/>
@@ -136,6 +139,7 @@
                                         <color key="backgroundColor" red="0.76825088455069579" green="0.99707191284327479" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="Nnh-n9-0Nz" firstAttribute="leading" secondItem="5WP-Wu-TrA" secondAttribute="trailing" constant="8" symbolic="YES" id="0Yd-o6-1tW"/>
+                                            <constraint firstItem="3MI-Zd-KI2" firstAttribute="width" secondItem="GPH-Ot-sLi" secondAttribute="width" id="5JZ-nh-6yx"/>
                                             <constraint firstItem="3MI-Zd-KI2" firstAttribute="centerY" secondItem="GPH-Ot-sLi" secondAttribute="centerY" id="Aqo-q1-YBU"/>
                                             <constraint firstItem="INp-8r-3mK" firstAttribute="top" secondItem="3MI-Zd-KI2" secondAttribute="bottom" constant="32" id="Bxr-yS-1n3"/>
                                             <constraint firstItem="kxA-Va-8v3" firstAttribute="leading" secondItem="atv-n1-2I2" secondAttribute="leadingMargin" id="EWK-WO-EnK"/>
@@ -168,7 +172,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="DyY-LT-JK4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="DyY-LT-JK4">
                                                 <rect key="frame" x="9" y="93" width="265" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
                                                 <color key="textColor" red="0.63454454910000002" green="0.0097303906620000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -179,7 +183,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip amount:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6pe-hA-In4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip amount:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6pe-hA-In4">
                                                 <rect key="frame" x="8" y="11" width="265" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="265" id="dys-7V-mKZ"/>
@@ -188,12 +192,12 @@
                                                 <color key="textColor" red="0.63454454910000002" green="0.0097303906620000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pom-F2-u5m" userLabel="PPP Text Field">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pom-F2-u5m" userLabel="PPP Text Field">
                                                 <rect key="frame" x="282" y="173" width="270" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Per Person:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="48P-4G-ujr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Per Person:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="48P-4G-ujr">
                                                 <rect key="frame" x="8" y="176" width="265" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
                                                 <color key="textColor" red="0.63454454910000002" green="0.0097303906620000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -214,6 +218,7 @@
                                             <constraint firstItem="Pom-F2-u5m" firstAttribute="leading" secondItem="48P-4G-ujr" secondAttribute="trailing" constant="9" id="ed5-k9-Bdc"/>
                                             <constraint firstItem="48P-4G-ujr" firstAttribute="centerY" secondItem="Pom-F2-u5m" secondAttribute="centerY" id="fg8-k4-xPr"/>
                                             <constraint firstItem="6pe-hA-In4" firstAttribute="leading" secondItem="ZVW-Pm-VCE" secondAttribute="leadingMargin" id="hAV-ko-cH7"/>
+                                            <constraint firstItem="Pom-F2-u5m" firstAttribute="width" secondItem="48P-4G-ujr" secondAttribute="width" constant="5" id="joF-Rv-7D5"/>
                                             <constraint firstItem="7l3-aK-e8h" firstAttribute="leading" secondItem="HzX-EZ-koT" secondAttribute="leading" id="kl5-vW-s1E"/>
                                             <constraint firstItem="48P-4G-ujr" firstAttribute="leading" secondItem="ZVW-Pm-VCE" secondAttribute="leading" constant="8" id="mCL-3t-xg2"/>
                                             <constraint firstItem="HzX-EZ-koT" firstAttribute="trailing" secondItem="ZVW-Pm-VCE" secondAttribute="trailingMargin" id="pgm-PU-GJT"/>
@@ -251,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="768" y="-349"/>
         </scene>
         <!--Unequal share-->
         <scene sceneID="wg7-f3-ORb">
