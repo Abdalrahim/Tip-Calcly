@@ -484,8 +484,8 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2X2-Gz-xEK" userLabel="PPP Table View">
-                                                <rect key="frame" x="0.0" y="96" width="560" height="200"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2X2-Gz-xEK" userLabel="PPP Table View">
+                                                <rect key="frame" x="0.0" y="96" width="560" height="259"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                                 <color key="separatorColor" red="0.57474343349241064" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <prototypes>
@@ -493,7 +493,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="560" height="56"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cg2-I8-8AM" id="3pE-8I-8Jb" userLabel="Person Content View">
-                                                            <rect key="frame" x="0.0" y="0.0" width="560" height="55"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="560" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ai-lm-CAL">
@@ -551,6 +551,9 @@
                                                                     <color key="minimumTrackTintColor" red="0.33725490196078434" green="0.0" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <color key="maximumTrackTintColor" red="1" green="0.97883110619639324" blue="0.99064646386627531" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <color key="thumbTintColor" red="0.42525656650758936" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <connections>
+                                                                        <action selector="valueChanged:" destination="cg2-I8-8AM" eventType="valueChanged" id="hXD-a9-bD2"/>
+                                                                    </connections>
                                                                 </slider>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.65756374124366701" green="0.92443276493757609" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -586,6 +589,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="billAmount" destination="VzL-ha-Qqj" id="VGz-oK-HOS"/>
+                                                            <outlet property="slider" destination="4p1-RN-yFr" id="Me1-Ux-hsb"/>
                                                             <outlet property="tipAmount" destination="JE0-55-NOt" id="pNp-cY-doG"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -602,7 +606,7 @@
                                             <constraint firstItem="Ezw-XX-lkC" firstAttribute="leading" secondItem="JKn-2J-w3R" secondAttribute="leading" id="4SO-El-u6g"/>
                                             <constraint firstItem="Ezw-XX-lkC" firstAttribute="top" secondItem="JKn-2J-w3R" secondAttribute="top" id="OU1-Eq-aOs"/>
                                             <constraint firstAttribute="trailing" secondItem="2X2-Gz-xEK" secondAttribute="trailing" id="Om1-tp-DLM"/>
-                                            <constraint firstAttribute="bottom" secondItem="2X2-Gz-xEK" secondAttribute="bottom" constant="59" id="QCy-Ie-tdS"/>
+                                            <constraint firstAttribute="bottom" secondItem="2X2-Gz-xEK" secondAttribute="bottom" id="QCy-Ie-tdS"/>
                                             <constraint firstAttribute="trailing" secondItem="Ezw-XX-lkC" secondAttribute="trailing" id="Sar-jo-SYt"/>
                                             <constraint firstItem="2X2-Gz-xEK" firstAttribute="leading" secondItem="JKn-2J-w3R" secondAttribute="leading" id="ybM-CT-WBX"/>
                                         </constraints>

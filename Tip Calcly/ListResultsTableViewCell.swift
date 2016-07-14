@@ -17,6 +17,12 @@ class ListResultsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var slider: UISlider!
     
+    @IBAction func valueChanged(sender: AnyObject) {
+//        slider!.minimumValue = 0
+//        slider!.maximumValue = 
+        print (slider.value)
+    }
+    
     @IBOutlet weak var lock: UISwitch!
     
 }

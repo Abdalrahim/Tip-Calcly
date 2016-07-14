@@ -19,8 +19,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
    
     var pppA: Double = 0.0
     var tppA: Double = 0.0
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -57,10 +55,11 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! ListResultsTableViewCell
         cell.billAmount.text = String(self.pppA)
         cell.tipAmount.text  = String(self.tppA)
-        
-        
+        cell.slider.value = Float()
+        print(cell.slider.value)
         return cell
     }
+    
     
     @IBAction func calculateTip(sender: AnyObject) {
         
@@ -82,7 +81,8 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let totalAmount = roundedBillAmount + roundedTipAmount
         let guests = (totalAmount) / Double(self.guests.text!)!
         let tguests = (roundedTipAmount) / Double(self.guests.text!)!
-        if (!billAmountField.editing) {
+        //let billsplit = guests * Double(self.slider)
+        if (billAmountField.editing) {
             billAmountField.text = String(format: "%.2f", roundedBillAmount)
         }
         tipAmountField.text = String(format: "%.2f", roundedTipAmount)
@@ -90,6 +90,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         
         self.pppA = guests
         self.tppA = tguests
+        
         resultTable.reloadData()
         
     }

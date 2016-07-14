@@ -14,6 +14,7 @@
 		0FDA943C1D336E95009A5118 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FDA943B1D336E95009A5118 /* Assets.xcassets */; };
 		0FDA943F1D336E95009A5118 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FDA943D1D336E95009A5118 /* LaunchScreen.storyboard */; };
 		0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */; };
+		0FFC5BA61D376BED0036B92C /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA51D376BED0036B92C /* Slider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0FDA943E1D336E95009A5118 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FDA94401D336E95009A5118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListResultsTableViewCell.swift; sourceTree = "<group>"; };
+		0FFC5BA51D376BED0036B92C /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		0FDA94311D336E94009A5118 /* Tip Calcly */ = {
 			isa = PBXGroup;
 			children = (
+				0FFC5BA41D376BCF0036B92C /* helper */,
 				0FDA94461D349601009A5118 /* Controllers */,
 				0FDA94321D336E95009A5118 /* AppDelegate.swift */,
 				0FDA94341D336E95009A5118 /* FirstViewController.swift */,
@@ -76,6 +79,14 @@
 				0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0FFC5BA41D376BCF0036B92C /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				0FFC5BA51D376BED0036B92C /* Slider.swift */,
+			);
+			name = helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FFC5BA61D376BED0036B92C /* Slider.swift in Sources */,
 				0FDA94371D336E95009A5118 /* SecondViewController.swift in Sources */,
 				0FDA94331D336E95009A5118 /* AppDelegate.swift in Sources */,
 				0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */,
