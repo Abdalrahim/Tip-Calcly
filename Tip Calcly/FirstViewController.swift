@@ -14,8 +14,8 @@ class FirstViewController: UIViewController {
     @IBOutlet var tipAmountField: UITextField!
     @IBOutlet var totalAmountField: UITextField!
     @IBOutlet weak var guests: UITextField!
-    
     @IBOutlet weak var ppp: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() 
