@@ -18,7 +18,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var resultTable: UITableView!
    
     var pppA: Double = 0.0
-    var tppA :Double = 0.0
+    var tppA: Double = 0.0
 
     
     override func viewDidLoad() {
@@ -38,8 +38,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
         
         if let valueOne = guests.text {
            
@@ -89,9 +87,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         }
         tipAmountField.text = String(format: "%.2f", roundedTipAmount)
         totalAmountField.text = String(format: "%.2f", totalAmount)
-        
-        //self.pppA = String(format: "%.2f", guests)
-        //self.tppA = String(format: "%.2f", tguests)
         
         self.pppA = guests
         self.tppA = tguests
