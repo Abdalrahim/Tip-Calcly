@@ -15,14 +15,21 @@ class ListResultsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var billAmount: UITextField!
     
+    
     @IBOutlet weak var slider: UISlider!
     
     @IBAction func valueChanged(sender: AnyObject) {
-//        slider!.minimumValue = 0
-//        slider!.maximumValue = 
-        print (slider.value)
+        
+        delegate?.changeSliders()
+
     }
-    
+    var delegate : SliderChangedDelegete?
+
     @IBOutlet weak var lock: UISwitch!
+    
+}
+
+protocol SliderChangedDelegete {
+    func changeSliders()
     
 }

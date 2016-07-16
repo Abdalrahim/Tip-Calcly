@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SliderChangedDelegete{
     
     @IBOutlet var billAmountField: UITextField!
     @IBOutlet weak var tipSelector: UITextField!
@@ -19,6 +19,13 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
    
     var pppA: Double = 0.0
     var tppA: Double = 0.0
+    
+    func changeSliders() {
+        
+//        print(SliderChangedDelegete)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -28,7 +35,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         resultTable.dataSource = self
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -42,20 +49,17 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
             if let value = Int(valueOne) {
                 return value
             }
-            
         }
-        
         return 0
-        
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! ListResultsTableViewCell
+        cell.delegate = self
         cell.billAmount.text = String(self.pppA)
         cell.tipAmount.text  = String(self.tppA)
-        cell.slider.value = Float()
+        
         print(cell.slider.value)
         return cell
     }
@@ -81,7 +85,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let totalAmount = roundedBillAmount + roundedTipAmount
         let guests = (totalAmount) / Double(self.guests.text!)!
         let tguests = (roundedTipAmount) / Double(self.guests.text!)!
-        //let billsplit = guests * Double(self.slider)
         if (billAmountField.editing) {
             billAmountField.text = String(format: "%.2f", roundedBillAmount)
         }
@@ -95,4 +98,5 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
 }
+
 
