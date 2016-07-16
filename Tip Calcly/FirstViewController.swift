@@ -19,6 +19,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func didReceiveMemoryWarning() {
@@ -28,7 +29,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func calculateTip(sender: AnyObject) {
-        self.hideKeyboardWhenTappedAround()
+        dismissKeyboard()
         guard let billAmount = Double(billAmountField.text!) else {
             //show error
             billAmountField.text = ""
@@ -55,6 +56,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate {
         totalAmountField.text = String(format: "%.2f", totalAmount)
         ppp.text = String(format: "%.2f", guests)
         tpp.text = String(format: "%.2f", tguests)
+        
     }
 }
 

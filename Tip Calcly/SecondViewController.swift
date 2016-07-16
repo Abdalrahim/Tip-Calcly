@@ -66,7 +66,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     @IBAction func calculateTip(sender: AnyObject) {
-        
+        dismissKeyboard()
         guard let billAmount = Double(billAmountField.text!) else {
             //show error
             billAmountField.text = ""
