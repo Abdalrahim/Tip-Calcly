@@ -11,10 +11,10 @@ import UIKit
 class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SliderChangedDelegete{
     
     @IBOutlet var billAmountField: UITextField!
-    @IBOutlet weak var tipSelector: UITextField!
+    @IBOutlet var tipSelector: UITextField!
     @IBOutlet var tipAmountField: UITextField!
     @IBOutlet var totalAmountField: UITextField!
-    @IBOutlet weak var guests: UITextField!
+    @IBOutlet var guests: UITextField!
     @IBOutlet var resultTable: UITableView!
    
     var pppA: Double = 0.0
@@ -22,7 +22,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     func changeSliders() {
         
-//        print(SliderChangedDelegete)
+        print(SliderChangedDelegete)
         
     }
     
@@ -59,8 +59,10 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         cell.delegate = self
         cell.billAmount.text = String(self.pppA)
         cell.tipAmount.text  = String(self.tppA)
+        func changeSliders(cell: SliderChangedDelegete){
+            cell.changeSliders()
+        }
         
-        print(cell.slider.value)
         return cell
     }
     
@@ -98,5 +100,3 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
 }
-
-

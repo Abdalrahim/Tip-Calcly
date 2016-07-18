@@ -11,21 +11,23 @@ import UIKit
 
 class ListResultsTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var tipAmount: UITextField!
+    @IBOutlet var tipAmount: UITextField!
     
-    @IBOutlet weak var billAmount: UITextField!
+    @IBOutlet var billAmount: UITextField!
     
     
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet var slider: UISlider!
     
     @IBAction func valueChanged(sender: AnyObject) {
         
         delegate?.changeSliders()
+        
 
     }
     var delegate : SliderChangedDelegete?
+    
 
-    @IBOutlet weak var lock: UISwitch!
+    @IBOutlet var lock: UISwitch!
     
 }
 

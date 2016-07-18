@@ -8,21 +8,23 @@
 
 import Foundation
 import UIKit
+/*
+class CellValues {
+    
+    var ppp: Double
+    var tpp: Double
+    var lock: Bool
+    
+    init(ppp: Double, tpp: Double) {
+        
+        self.ppp = ppp
+        self.tpp = tpp
+        
+        
+        _ = false
+        
+    }
+    return
+ }
 
-//class CellValues {
-//    
-//    var ppp: Double
-//    var tpp: Double
-//    var lock: Bool
-//    
-//    init(ppp: Double, tpp: Double) {
-//        
-//        self.ppp = ppp
-//        self.tpp = tpp
-//        
-//        
-//        _ = false
-//        
-//    }
-//    return
-
+*/

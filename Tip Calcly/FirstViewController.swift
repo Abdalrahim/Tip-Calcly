@@ -49,7 +49,7 @@ class FirstViewController: UIViewController, UITextFieldDelegate {
         let guests = (totalAmount) / Double(self.guests.text!)!
         let tguests = (roundedTipAmount) / Double(self.guests.text!)!
         
-        if (!billAmountField.editing) {
+        if (billAmountField.editing) {
             billAmountField.text = String(format: "%.2f", roundedBillAmount)
         }
         tipAmountField.text = String(format: "%.2f", roundedTipAmount)
