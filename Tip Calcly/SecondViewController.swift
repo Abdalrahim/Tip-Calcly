@@ -20,21 +20,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBOutlet weak var tableView: UITableView!
     
-    /* var tcCellValues:[TCCellValues]? {
-     didSet{
-     
-     print ("roger wilco")
-     if let _ = tcCellValues {
-     
-     tableView.reloadData()
-     
-     }
-     
-     }
-     
-     }
-     */
-    
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
     
@@ -138,7 +123,7 @@ extension SecondViewController{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! ListResultsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("myTCCell") as! ListResultsTableViewCell
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
         
