@@ -14,7 +14,7 @@
 		0FDA943C1D336E95009A5118 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FDA943B1D336E95009A5118 /* Assets.xcassets */; };
 		0FDA943F1D336E95009A5118 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FDA943D1D336E95009A5118 /* LaunchScreen.storyboard */; };
 		0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */; };
-		0FFC5BA61D376BED0036B92C /* ValueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA51D376BED0036B92C /* ValueHelper.swift */; };
+		0FFC5BA61D376BED0036B92C /* TCHelperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */; };
 		0FFC5BA81D3879830036B92C /* CellValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA71D3879830036B92C /* CellValues.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +28,7 @@
 		0FDA943E1D336E95009A5118 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FDA94401D336E95009A5118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListResultsTableViewCell.swift; sourceTree = "<group>"; };
-		0FFC5BA51D376BED0036B92C /* ValueHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueHelper.swift; sourceTree = "<group>"; };
+		0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCHelperClass.swift; sourceTree = "<group>"; };
 		0FFC5BA71D3879830036B92C /* CellValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellValues.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +87,7 @@
 		0FFC5BA41D376BCF0036B92C /* helper */ = {
 			isa = PBXGroup;
 			children = (
-				0FFC5BA51D376BED0036B92C /* ValueHelper.swift */,
+				0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */,
 			);
 			name = helper;
 			sourceTree = "<group>";
@@ -164,7 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FFC5BA61D376BED0036B92C /* ValueHelper.swift in Sources */,
+				0FFC5BA61D376BED0036B92C /* TCHelperClass.swift in Sources */,
 				0FDA94371D336E95009A5118 /* SecondViewController.swift in Sources */,
 				0FDA94331D336E95009A5118 /* AppDelegate.swift in Sources */,
 				0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */,
@@ -284,6 +284,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Tip-Calcly";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -296,6 +297,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Tip-Calcly";
 				PRODUCT_NAME = "$(TARGET_NAME)";

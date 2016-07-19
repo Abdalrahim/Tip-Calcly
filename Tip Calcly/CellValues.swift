@@ -8,23 +8,24 @@
 
 import Foundation
 import UIKit
-/*
+
 class CellValues {
     
-    var ppp: Double
-    var tpp: Double
-    var lock: Bool
+    var perPersonTotal:Double
+    var perPersonTip:Double
+    var isCellLocked:Bool
+    var isCellModified:Bool
     
-    init(ppp: Double, tpp: Double) {
+    
+    init(perPersonTotal:Double,perPersonTip:Double) {
         
-        self.ppp = ppp
-        self.tpp = tpp
+        self.perPersonTotal = perPersonTotal
+        self.perPersonTip   = perPersonTip
         
-        
-        _ = false
-        
+        isCellLocked = false
+        isCellModified = false
     }
-    return
- }
+    
+    
+}
 
-*/

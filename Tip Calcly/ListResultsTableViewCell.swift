@@ -9,29 +9,84 @@
 import Foundation
 import UIKit
 
+protocol TCTableViewCellProtocol:class  {
+    
+    func calcAndReload() -> Void
+}
+
+
 class ListResultsTableViewCell: UITableViewCell {
     
-    @IBOutlet var tipAmount: UITextField!
+    //Pseudo code
+    // user changes a tip value
+    // the changed column  is noted
+    // all the column values are recalculated
+    // the column changed values are reset
+    // the cells are reloaded
     
-    @IBOutlet var billAmount: UITextField!
+    @IBOutlet weak var totalAmount: UITextField!
+    @IBOutlet weak var tipAmount: UITextField!
+    @IBOutlet weak var canChangeValue: UISwitch!
     
+    weak var delegate:TCTableViewCellProtocol?
     
-    @IBOutlet var slider: UISlider!
+    var oldTipAmount:Double?
     
-    @IBAction func valueChanged(sender: AnyObject) {
+    var myCellDetails:CellValues? {
         
-        delegate?.changeSliders()
+        didSet{
+            
+            if let myCellDetails = myCellDetails{
+                
+                self.totalAmount.text = String(myCellDetails.perPersonTotal)
+                self.tipAmount.text = String(myCellDetails.perPersonTip)
+                
+                if oldValue == nil {
+                    
+                    oldTipAmount = Double(tipAmount.text!)
+                    tipAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                    
+                }
+            }
+            
+        }
         
-
     }
-    var delegate : SliderChangedDelegete?
     
-
-    @IBOutlet var lock: UISwitch!
+    func textFieldDidChange(textField: UITextField) {
+        
+        if let value = Double(textField.text!) {
+            
+            myCellDetails!.perPersonTip = value
+            
+        }
+        else {
+            myCellDetails?.perPersonTip = 0.0
+        }
+        
+        myCellDetails!.isCellModified = true
+        
+        if canChangeValue.on == true {
+            
+            myCellDetails!.isCellLocked = false
+            
+        }
+        else {
+            
+            myCellDetails!.isCellLocked = true
+            
+        }
+        
+        myCellDetails!.perPersonTotal = myCellDetails!.perPersonTotal - oldTipAmount! + myCellDetails!.perPersonTip
+        
+        oldTipAmount = myCellDetails!.perPersonTip
+        
+        if let delegate = delegate {
+            
+            delegate.calcAndReload()
+        }
+        
+    }
     
 }
 
-protocol SliderChangedDelegete {
-    func changeSliders()
-    
-}

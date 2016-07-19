@@ -8,66 +8,135 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet var billAmountField: UITextField!
-    @IBOutlet weak var tipSelector: UITextField!
-    @IBOutlet var tipAmountField: UITextField!
-    @IBOutlet var totalAmountField: UITextField!
-    @IBOutlet weak var guests: UITextField!
-    @IBOutlet weak var ppp: UITextField!
-    @IBOutlet weak var tpp: UITextField!
+class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    
+    @IBOutlet weak var numGuests: UITextField!
+    @IBOutlet weak var tipPercent: UITextField!
+    @IBOutlet weak var billAmount: UITextField!
+    
+    @IBOutlet weak var totalToPay: UITextField!
+    @IBOutlet weak var totalTipToPay: UITextField!
+    @IBOutlet weak var totalPerPerson: UITextField!
+    @IBOutlet weak var tipPerPerson: UITextField!
+    
+    var numGuestpickerView:UIPickerView!
+    var tipPercentpickerView:UIPickerView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        //Picker View
+        numGuestpickerView = UIPickerView()
+        numGuestpickerView.delegate = self
+        
+        tipPercentpickerView = UIPickerView()
+        tipPercentpickerView.delegate = self
+        
+        numGuests.inputView = numGuestpickerView
+        tipPercent.inputView = tipPercentpickerView
+        
+        self.addDoneButtonOnKeyboard()
+        
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func calculateResults() {
+        
+        if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
+            totalTipToPay.text = String(round( billAmount * tipPercent / 100 * 100 ) / 100)
+            totalToPay.text =  String (round ((billAmount + Double(totalTipToPay.text!)!) * 100 ) / 100 )
+            totalPerPerson.text = String ( round ( Double(totalToPay.text!)!/Double(numGuests) * 100.0  ) / 100 )
+            tipPerPerson.text = String ( round ( Double(totalTipToPay.text!)!/Double(numGuests) * 100.0  ) / 100 )
+            
+        }
+        
     }
     
     
-    @IBAction func calculateTip(sender: AnyObject) {
-        dismissKeyboard()
-        guard let billAmount = Double(billAmountField.text!) else {
-            //show error
-            billAmountField.text = ""
-            tipAmountField.text = ""
-            totalAmountField.text = ""
-            self.guests.text = ""
-            return
-        }
+    
+}
+
+// Logic for adding the Return button on the Decimal Keyboard
+extension FirstViewController{
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Calculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
         
         
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
         
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
         
-        let roundedBillAmount = round(100*billAmount)/100
-        let tipAmount = roundedBillAmount * Double(tipSelector.text!)!/100
-        let roundedTipAmount = round(100*tipAmount)/100
-        let totalAmount = roundedBillAmount + roundedTipAmount
-        let guests = (totalAmount) / Double(self.guests.text!)!
-        let tguests = (roundedTipAmount) / Double(self.guests.text!)!
-        
-        if (billAmountField.editing) {
-            billAmountField.text = String(format: "%.2f", roundedBillAmount)
-        }
-        tipAmountField.text = String(format: "%.2f", roundedTipAmount)
-        totalAmountField.text = String(format: "%.2f", totalAmount)
-        ppp.text = String(format: "%.2f", guests)
-        tpp.text = String(format: "%.2f", tguests)
+        self.billAmount.inputAccessoryView = doneToolbar
         
     }
+    
+    func doneButtonAction()
+    {
+        self.billAmount.resignFirstResponder()
+        calculateResults()
+    }
+    
+    
 }
 
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+// Picker View Logic
+extension FirstViewController{
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func dismissKeyboard() {
-        view.endEditing(true)
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if pickerView == numGuestpickerView{
+            
+            return TCHelperClass.numGuestOptions.count
+        }
+        else {
+            return TCHelperClass.tipPercentOptions.count
+        }
+        
+        
     }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if pickerView == numGuestpickerView{
+            
+            return TCHelperClass.numGuestOptions[row]
+        }
+        else {
+            
+            return TCHelperClass.tipPercentOptions[row]
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if pickerView == numGuestpickerView{
+            
+            numGuests.text = TCHelperClass.numGuestOptions[row]
+            calculateResults()
+            
+        } else {
+            
+            tipPercent.text =  TCHelperClass.tipPercentOptions[row]
+            calculateResults()
+        }
+        
+        
+    }
+    
 }
