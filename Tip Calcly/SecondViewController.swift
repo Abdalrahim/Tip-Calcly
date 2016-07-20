@@ -26,6 +26,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         //Picker View
         numGuestpickerView = UIPickerView()
@@ -123,7 +124,7 @@ extension SecondViewController{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("myTCCell") as! ListResultsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! ListResultsTableViewCell
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
         

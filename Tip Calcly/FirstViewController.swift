@@ -24,8 +24,8 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     var tipPercentpickerView:UIPickerView!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         //Picker View
         numGuestpickerView = UIPickerView()
@@ -139,4 +139,14 @@ extension FirstViewController{
         
     }
     
+}
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
