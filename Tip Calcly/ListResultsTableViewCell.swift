@@ -27,9 +27,7 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var tipAmount: UITextField!
     @IBOutlet weak var canChangeValue: UISwitch!
     
-    
     weak var delegate:TCTableViewCellProtocol?
-    
     
     var oldTotalAmount:Double?
     var oldTipAmount:Double?
@@ -37,9 +35,11 @@ class ListResultsTableViewCell: UITableViewCell {
     
     var myCellDetails:CellValues? {
         
+        
         didSet{
             
             if let myCellDetails = myCellDetails{
+                addDoneButtonOnKeyboard()
                 
                 self.totalAmount.text = String(myCellDetails.perPersonTotal)
                 self.tipAmount.text = String(myCellDetails.perPersonTip)
@@ -82,10 +82,38 @@ class ListResultsTableViewCell: UITableViewCell {
             
         }
         
-        myCellDetails!.perPersonTotal = myCellDetails!.perPersonTotal - oldTotalAmount!
         
         oldTotalAmount = myCellDetails!.perPersonTotal
         
+        
+    }
+    
+    //add calculate button
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Recalculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.totalAmount.inputAccessoryView = doneToolbar
+        self.tipAmount.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.totalAmount.resignFirstResponder()
+        self.tipAmount.resignFirstResponder()
         if let delegate = delegate {
             
             delegate.calcAndReload()
@@ -115,13 +143,9 @@ class ListResultsTableViewCell: UITableViewCell {
             
         }
         
-        myCellDetails!.perPersonTip = myCellDetails!.perPersonTip - oldTipAmount!
         
         oldTipAmount = myCellDetails!.perPersonTip
         
-        if let delegate = delegate {
-            
-            delegate.calcAndReload()
-        }
+        
     }
 }

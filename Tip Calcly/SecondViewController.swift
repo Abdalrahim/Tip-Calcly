@@ -103,6 +103,7 @@ extension SecondViewController{
     func calcAndReload() -> Void {
         
         TCHelperClass.seCellValues()
+        tableView.reloadData()
     }
     
 }
