@@ -27,9 +27,13 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var tipAmount: UITextField!
     @IBOutlet weak var canChangeValue: UISwitch!
     
+    
     weak var delegate:TCTableViewCellProtocol?
     
+    
+    var oldTotalAmount:Double?
     var oldTipAmount:Double?
+    
     
     var myCellDetails:CellValues? {
         
@@ -42,9 +46,11 @@ class ListResultsTableViewCell: UITableViewCell {
                 
                 if oldValue == nil {
                     
-                    oldTipAmount = Double(tipAmount.text!)
-                    tipAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                    oldTotalAmount = Double(totalAmount.text!)
+                    totalAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
                     
+                    oldTipAmount = Double(tipAmount.text!)
+                    tipAmount.addTarget(self, action: #selector(textFieldDidChange1(_:)), forControlEvents: UIControlEvents.EditingChanged)
                 }
             }
             
@@ -53,6 +59,39 @@ class ListResultsTableViewCell: UITableViewCell {
     }
     
     func textFieldDidChange(textField: UITextField) {
+        
+        if let value = Double(textField.text!) {
+            
+            myCellDetails!.perPersonTotal = value
+            
+        }
+        else {
+            myCellDetails?.perPersonTotal = 0.0
+        }
+        
+        myCellDetails!.isCellModified = true
+        
+        if canChangeValue.on == true {
+            
+            myCellDetails!.isCellLocked = false
+            
+        }
+        else {
+            
+            myCellDetails!.isCellLocked = true
+            
+        }
+        
+        myCellDetails!.perPersonTotal = myCellDetails!.perPersonTotal - oldTotalAmount!
+        
+        oldTotalAmount = myCellDetails!.perPersonTotal
+        
+        if let delegate = delegate {
+            
+            delegate.calcAndReload()
+        }
+    }
+    func textFieldDidChange1(textField: UITextField) {
         
         if let value = Double(textField.text!) {
             
@@ -76,7 +115,7 @@ class ListResultsTableViewCell: UITableViewCell {
             
         }
         
-        myCellDetails!.perPersonTotal = myCellDetails!.perPersonTotal - oldTipAmount! + myCellDetails!.perPersonTip
+        myCellDetails!.perPersonTip = myCellDetails!.perPersonTip - oldTipAmount!
         
         oldTipAmount = myCellDetails!.perPersonTip
         
@@ -84,8 +123,5 @@ class ListResultsTableViewCell: UITableViewCell {
             
             delegate.calcAndReload()
         }
-        
     }
-    
 }
-

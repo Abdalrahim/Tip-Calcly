@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource,TCTableViewCellProtocol {
+class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITextFieldDelegate, TCTableViewCellProtocol {
     
     
     @IBOutlet weak var numGuests: UITextField!
@@ -43,7 +43,40 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         self.addDoneButtonOnKeyboard()
         
     }
+    //hiding keyboard
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
     
+    func subscribeToKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:))    , name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:))    , name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        view.frame.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        view.frame.origin.y += getKeyboardHeight(notification)
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.CGRectValue().height
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+    func unsubscribeFromKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:
+            UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:
+            UIKeyboardWillHideNotification, object: nil)
+    }
     func calculateResults() {
         
         if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
@@ -55,15 +88,12 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             TCHelperClass.numGuests = numGuests
             TCHelperClass.tipPercent = tipPercent
             
-            //tcCellValues = TCHelperClass.tcCellValues
             
             tableView.reloadData()
             
         }
         
     }
-    
-    
     
 }
 
@@ -73,7 +103,6 @@ extension SecondViewController{
     func calcAndReload() -> Void {
         
         TCHelperClass.seCellValues()
-        tableView.reloadData()
     }
     
 }
@@ -128,6 +157,7 @@ extension SecondViewController{
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
         
+        
         cell.delegate = self
         
         return cell
@@ -156,6 +186,7 @@ extension SecondViewController{
         
     }
     
+    
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == numGuestpickerView{
@@ -183,6 +214,7 @@ extension SecondViewController{
         
         
     }
+    
     
 }
 
