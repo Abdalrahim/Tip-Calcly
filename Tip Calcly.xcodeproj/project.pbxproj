@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F11EFE51D44D8E60060F7B6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F11EFE41D44D8E60060F7B6 /* CellData.swift */; };
 		0FDA94331D336E95009A5118 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94321D336E95009A5118 /* AppDelegate.swift */; };
 		0FDA94351D336E95009A5118 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94341D336E95009A5118 /* FirstViewController.swift */; };
 		0FDA94371D336E95009A5118 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94361D336E95009A5118 /* SecondViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F11EFE41D44D8E60060F7B6 /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		0FDA942F1D336E94009A5118 /* Tip Calcly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tip Calcly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FDA94321D336E95009A5118 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FDA94341D336E95009A5118 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */,
+				0F11EFE41D44D8E60060F7B6 /* CellData.swift */,
 			);
 			name = helper;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				0FDA94371D336E95009A5118 /* SecondViewController.swift in Sources */,
 				0FDA94331D336E95009A5118 /* AppDelegate.swift in Sources */,
 				0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */,
+				0F11EFE51D44D8E60060F7B6 /* CellData.swift in Sources */,
 				0FDA94351D336E95009A5118 /* FirstViewController.swift in Sources */,
 				0FFC5BA81D3879830036B92C /* CellValues.swift in Sources */,
 			);

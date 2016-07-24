@@ -27,6 +27,11 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var tipAmount: UITextField!
     @IBOutlet weak var canChangeValue: UISwitch!
     
+    @IBAction func canChangeVal(sender: AnyObject) {
+        print(canChangeValue.on)
+    }
+    
+    
     weak var delegate:TCTableViewCellProtocol?
     
     var oldTotalAmount:Double?
@@ -47,10 +52,10 @@ class ListResultsTableViewCell: UITableViewCell {
                 if oldValue == nil {
                     
                     oldTotalAmount = Double(totalAmount.text!)
-                    totalAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                    totalAmount.addTarget(self, action: #selector(totalFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
                     
                     oldTipAmount = Double(tipAmount.text!)
-                    tipAmount.addTarget(self, action: #selector(textFieldDidChange1(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                    tipAmount.addTarget(self, action: #selector(tipFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
                 }
             }
             
@@ -58,7 +63,7 @@ class ListResultsTableViewCell: UITableViewCell {
         
     }
     
-    func textFieldDidChange(textField: UITextField) {
+    func totalFieldDidChange(textField: UITextField) {
         
         if let value = Double(textField.text!) {
             
@@ -119,7 +124,8 @@ class ListResultsTableViewCell: UITableViewCell {
             delegate.calcAndReload()
         }
     }
-    func textFieldDidChange1(textField: UITextField) {
+    
+    func tipFieldDidChange(textField: UITextField) {
         
         if let value = Double(textField.text!) {
             

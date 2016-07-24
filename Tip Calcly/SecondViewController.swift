@@ -43,13 +43,14 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         self.addDoneButtonOnKeyboard()
         
     }
+    
     //hiding keyboard
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        subscribeToKeyboardNotifications()
     }
     
     func subscribeToKeyboardNotifications() {
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:))    , name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:))    , name: UIKeyboardWillHideNotification, object: nil)
     }
@@ -69,7 +70,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        unsubscribeFromKeyboardNotifications()
     }
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:
@@ -77,6 +77,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         NSNotificationCenter.defaultCenter().removeObserver(self, name:
             UIKeyboardWillHideNotification, object: nil)
     }
+    
     func calculateResults() {
         
         if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
@@ -117,7 +118,7 @@ extension SecondViewController{
         doneToolbar.barStyle = UIBarStyle.Default
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Calculate Now", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Calculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
         
         var items = [UIBarButtonItem]()
         items.append(flexSpace)
