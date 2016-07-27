@@ -47,6 +47,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     //hiding keyboard
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        subscribeToKeyboardNotifications()
     }
     
     func subscribeToKeyboardNotifications() {
@@ -70,6 +71,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
     }
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:

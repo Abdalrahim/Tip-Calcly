@@ -57,6 +57,7 @@ class ListResultsTableViewCell: UITableViewCell {
                     oldTipAmount = Double(tipAmount.text!)
                     tipAmount.addTarget(self, action: #selector(tipFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
                 }
+                
             }
             
         }
@@ -75,18 +76,6 @@ class ListResultsTableViewCell: UITableViewCell {
         }
         
         myCellDetails!.isCellModified = true
-        
-        if canChangeValue.on == true {
-            
-            myCellDetails!.isCellLocked = false
-            
-        }
-        else {
-            
-            myCellDetails!.isCellLocked = true
-            
-        }
-        
         
         oldTotalAmount = myCellDetails!.perPersonTotal
         
@@ -119,9 +108,14 @@ class ListResultsTableViewCell: UITableViewCell {
     {
         self.totalAmount.resignFirstResponder()
         self.tipAmount.resignFirstResponder()
-        if let delegate = delegate {
+        if canChangeValue.on == true {
+            if let delegate = delegate {
             
             delegate.calcAndReload()
+            }
+        }
+        else {
+            return
         }
     }
     
