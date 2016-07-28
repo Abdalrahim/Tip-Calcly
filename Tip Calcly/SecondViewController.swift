@@ -44,40 +44,8 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    //hiding keyboard
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        subscribeToKeyboardNotifications()
-    }
-    
-    func subscribeToKeyboardNotifications() {
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:))    , name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:))    , name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        view.frame.origin.y -= getKeyboardHeight(notification)
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        view.frame.origin.y += getKeyboardHeight(notification)
-    }
-    
-    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        return keyboardSize.CGRectValue().height
-    }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        unsubscribeFromKeyboardNotifications()
-    }
-    func unsubscribeFromKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:
-            UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:
-            UIKeyboardWillHideNotification, object: nil)
     }
     
     func calculateResults() {

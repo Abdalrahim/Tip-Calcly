@@ -1,0 +1,6 @@
+framework module Pods_Tip_Calcly {
+  umbrella header "Pods-Tip Calcly-umbrella.h"
+
+  export *
+  module * { export * }
+}

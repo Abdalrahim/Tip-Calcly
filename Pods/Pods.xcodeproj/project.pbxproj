@@ -1,0 +1,521 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D864929261413E9B1A319C523E1F6D0 /* IHKeyboardAvoiding-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 379FADF819B1A5F6ED66DB0F08F0163C /* IHKeyboardAvoiding-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0DC0BF7C2493B47AA772EA53FAF17C39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		863C068C7A799CD4A2CA363ED0C4E248 /* Pods-Tip Calcly-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F01F2C142219CA1FBC690D1B6FC4F0A /* Pods-Tip Calcly-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		957AD0F3A0CAFE3A715A5145EDE60E02 /* IHKeyboardAvoiding.h in Headers */ = {isa = PBXBuildFile; fileRef = C0F425AA72DB3556D262FCD1B09A8E28 /* IHKeyboardAvoiding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D7E811C469EEA7B75FC39736984C5C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		D93F07A18882C5D4027393701821C6AD /* IHKeyboardAvoiding.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C30BD0944BDEE682303C4207098F37E /* IHKeyboardAvoiding.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E952CDEB8BADD135CC4F33F9252B3992 /* IHKeyboardAvoiding-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C66A729A7821A467B7BE564D1774DC34 /* IHKeyboardAvoiding-dummy.m */; };
+		F9F36E8CC2A8D06F460A63D0F2182FDF /* Pods-Tip Calcly-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 12988598A61A9B1FCB2C9EA1BAAA8175 /* Pods-Tip Calcly-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F99102538204E4CEA5DA507F4B3F31D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2189A727627A385231CCBFC87D36327A;
+			remoteInfo = IHKeyboardAvoiding;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0C982325B561055419E33A01396DEEF3 /* Pods-Tip Calcly-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tip Calcly-acknowledgements.plist"; sourceTree = "<group>"; };
+		12988598A61A9B1FCB2C9EA1BAAA8175 /* Pods-Tip Calcly-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tip Calcly-dummy.m"; sourceTree = "<group>"; };
+		379FADF819B1A5F6ED66DB0F08F0163C /* IHKeyboardAvoiding-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IHKeyboardAvoiding-umbrella.h"; sourceTree = "<group>"; };
+		453BC9D818E40D7C1DCF1F8CB6776FF9 /* Pods_Tip_Calcly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tip_Calcly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		552C9E5FF672B718A20F2D7A8EEB6C95 /* IHKeyboardAvoiding.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IHKeyboardAvoiding.xcconfig; sourceTree = "<group>"; };
+		564E1F38B3B122B61BD2087191F323CE /* Pods-Tip Calcly-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tip Calcly-resources.sh"; sourceTree = "<group>"; };
+		5F01F2C142219CA1FBC690D1B6FC4F0A /* Pods-Tip Calcly-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tip Calcly-umbrella.h"; sourceTree = "<group>"; };
+		7B4451741C0FF9F3D38E365E68736ABC /* Pods-Tip Calcly-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tip Calcly-acknowledgements.markdown"; sourceTree = "<group>"; };
+		81B9D1C096D121B54958065CEAF85AC7 /* Pods-Tip Calcly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tip Calcly.debug.xcconfig"; sourceTree = "<group>"; };
+		8C30BD0944BDEE682303C4207098F37E /* IHKeyboardAvoiding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IHKeyboardAvoiding.m; path = Classes/IHKeyboardAvoiding.m; sourceTree = "<group>"; };
+		8C8185E9B0B62947DE5AE62AD77973C0 /* IHKeyboardAvoiding.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = IHKeyboardAvoiding.modulemap; sourceTree = "<group>"; };
+		9378ABF4B3CC127B41713D44C7D6AEDB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93CE254980CE7C55CC96B97870169740 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5830787972C346F86FCFD7302C7BFA7 /* Pods-Tip Calcly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tip Calcly.release.xcconfig"; sourceTree = "<group>"; };
+		C0F425AA72DB3556D262FCD1B09A8E28 /* IHKeyboardAvoiding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IHKeyboardAvoiding.h; path = Classes/IHKeyboardAvoiding.h; sourceTree = "<group>"; };
+		C44B2613F085FC42E2C5F025C5BBBF74 /* IHKeyboardAvoiding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IHKeyboardAvoiding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66A729A7821A467B7BE564D1774DC34 /* IHKeyboardAvoiding-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IHKeyboardAvoiding-dummy.m"; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E0DCFDBD37809CA32D3001C6E2F2F40F /* IHKeyboardAvoiding-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IHKeyboardAvoiding-prefix.pch"; sourceTree = "<group>"; };
+		EA6CAF4E12CBB93B5DCBFB1897B7DB0C /* Pods-Tip Calcly.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Tip Calcly.modulemap"; sourceTree = "<group>"; };
+		F6D077B27212ECFB54BFB0E052D1622E /* Pods-Tip Calcly-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tip Calcly-frameworks.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		31CD68E9026534B98F94E6EABBBB8C27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D7E811C469EEA7B75FC39736984C5C2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		337170F666502C5C243995235862ED57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DC0BF7C2493B47AA772EA53FAF17C39 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		4B83DE357F7C3C28A1D9B3047606E6B6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FEE779C50343A1FB9CDE951947E9C074 /* IHKeyboardAvoiding */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		629A90DA5FB24C8671804ACB3FC2B8F3 /* Pods-Tip Calcly */ = {
+			isa = PBXGroup;
+			children = (
+				93CE254980CE7C55CC96B97870169740 /* Info.plist */,
+				EA6CAF4E12CBB93B5DCBFB1897B7DB0C /* Pods-Tip Calcly.modulemap */,
+				7B4451741C0FF9F3D38E365E68736ABC /* Pods-Tip Calcly-acknowledgements.markdown */,
+				0C982325B561055419E33A01396DEEF3 /* Pods-Tip Calcly-acknowledgements.plist */,
+				12988598A61A9B1FCB2C9EA1BAAA8175 /* Pods-Tip Calcly-dummy.m */,
+				F6D077B27212ECFB54BFB0E052D1622E /* Pods-Tip Calcly-frameworks.sh */,
+				564E1F38B3B122B61BD2087191F323CE /* Pods-Tip Calcly-resources.sh */,
+				5F01F2C142219CA1FBC690D1B6FC4F0A /* Pods-Tip Calcly-umbrella.h */,
+				81B9D1C096D121B54958065CEAF85AC7 /* Pods-Tip Calcly.debug.xcconfig */,
+				A5830787972C346F86FCFD7302C7BFA7 /* Pods-Tip Calcly.release.xcconfig */,
+			);
+			name = "Pods-Tip Calcly";
+			path = "Target Support Files/Pods-Tip Calcly";
+			sourceTree = "<group>";
+		};
+		662E1B632DEF04DFD71F4AE42F900621 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				629A90DA5FB24C8671804ACB3FC2B8F3 /* Pods-Tip Calcly */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		6FC51826680346DC63F1528057442C10 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C8185E9B0B62947DE5AE62AD77973C0 /* IHKeyboardAvoiding.modulemap */,
+				552C9E5FF672B718A20F2D7A8EEB6C95 /* IHKeyboardAvoiding.xcconfig */,
+				C66A729A7821A467B7BE564D1774DC34 /* IHKeyboardAvoiding-dummy.m */,
+				E0DCFDBD37809CA32D3001C6E2F2F40F /* IHKeyboardAvoiding-prefix.pch */,
+				379FADF819B1A5F6ED66DB0F08F0163C /* IHKeyboardAvoiding-umbrella.h */,
+				9378ABF4B3CC127B41713D44C7D6AEDB /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/IHKeyboardAvoiding";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				4B83DE357F7C3C28A1D9B3047606E6B6 /* Pods */,
+				D1E7347FE7CEB1EF86AF89AF025A1941 /* Products */,
+				662E1B632DEF04DFD71F4AE42F900621 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1E7347FE7CEB1EF86AF89AF025A1941 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C44B2613F085FC42E2C5F025C5BBBF74 /* IHKeyboardAvoiding.framework */,
+				453BC9D818E40D7C1DCF1F8CB6776FF9 /* Pods_Tip_Calcly.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FEE779C50343A1FB9CDE951947E9C074 /* IHKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				C0F425AA72DB3556D262FCD1B09A8E28 /* IHKeyboardAvoiding.h */,
+				8C30BD0944BDEE682303C4207098F37E /* IHKeyboardAvoiding.m */,
+				6FC51826680346DC63F1528057442C10 /* Support Files */,
+			);
+			path = IHKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		15FFE666E7D0AA98A01ACD3366546BFB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				863C068C7A799CD4A2CA363ED0C4E248 /* Pods-Tip Calcly-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		72127855DEF0650E71FB4D4D14D3C139 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D864929261413E9B1A319C523E1F6D0 /* IHKeyboardAvoiding-umbrella.h in Headers */,
+				957AD0F3A0CAFE3A715A5145EDE60E02 /* IHKeyboardAvoiding.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2189A727627A385231CCBFC87D36327A /* IHKeyboardAvoiding */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB32C197C6006011AFC08A832C209676 /* Build configuration list for PBXNativeTarget "IHKeyboardAvoiding" */;
+			buildPhases = (
+				417BB8D0BE45CE2941A64558B8EA3259 /* Sources */,
+				337170F666502C5C243995235862ED57 /* Frameworks */,
+				72127855DEF0650E71FB4D4D14D3C139 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IHKeyboardAvoiding;
+			productName = IHKeyboardAvoiding;
+			productReference = C44B2613F085FC42E2C5F025C5BBBF74 /* IHKeyboardAvoiding.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BDB08F2FBA1FE3DF3BA801F49853958D /* Pods-Tip Calcly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF614B84CC3A9BCE3AC78D20061EA771 /* Build configuration list for PBXNativeTarget "Pods-Tip Calcly" */;
+			buildPhases = (
+				7AC9F58453C342F4C92A0E1856318C9A /* Sources */,
+				31CD68E9026534B98F94E6EABBBB8C27 /* Frameworks */,
+				15FFE666E7D0AA98A01ACD3366546BFB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3096A4E28179509FBD859D175D1BE9B4 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tip Calcly";
+			productName = "Pods-Tip Calcly";
+			productReference = 453BC9D818E40D7C1DCF1F8CB6776FF9 /* Pods_Tip_Calcly.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = D1E7347FE7CEB1EF86AF89AF025A1941 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2189A727627A385231CCBFC87D36327A /* IHKeyboardAvoiding */,
+				BDB08F2FBA1FE3DF3BA801F49853958D /* Pods-Tip Calcly */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		417BB8D0BE45CE2941A64558B8EA3259 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E952CDEB8BADD135CC4F33F9252B3992 /* IHKeyboardAvoiding-dummy.m in Sources */,
+				D93F07A18882C5D4027393701821C6AD /* IHKeyboardAvoiding.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AC9F58453C342F4C92A0E1856318C9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9F36E8CC2A8D06F460A63D0F2182FDF /* Pods-Tip Calcly-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3096A4E28179509FBD859D175D1BE9B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = IHKeyboardAvoiding;
+			target = 2189A727627A385231CCBFC87D36327A /* IHKeyboardAvoiding */;
+			targetProxy = 1F99102538204E4CEA5DA507F4B3F31D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		034014829C1E4434983CF3A690C12017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		7AF2B344C43105C4B4B770C4EE0D98D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 552C9E5FF672B718A20F2D7A8EEB6C95 /* IHKeyboardAvoiding.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/IHKeyboardAvoiding/IHKeyboardAvoiding-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IHKeyboardAvoiding/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/IHKeyboardAvoiding/IHKeyboardAvoiding.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = IHKeyboardAvoiding;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C7E474A03CAE21F1CB6046E7344C59BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DFD240B8F515F20514A70C3EB96F92B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81B9D1C096D121B54958065CEAF85AC7 /* Pods-Tip Calcly.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Tip Calcly/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Tip Calcly/Pods-Tip Calcly.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Tip_Calcly;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F5D0FA78FA5050E938A284734BB9D193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5830787972C346F86FCFD7302C7BFA7 /* Pods-Tip Calcly.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Tip Calcly/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Tip Calcly/Pods-Tip Calcly.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Tip_Calcly;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F7B889CC1F640131AC8408DE8EC84146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 552C9E5FF672B718A20F2D7A8EEB6C95 /* IHKeyboardAvoiding.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/IHKeyboardAvoiding/IHKeyboardAvoiding-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IHKeyboardAvoiding/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/IHKeyboardAvoiding/IHKeyboardAvoiding.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = IHKeyboardAvoiding;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				034014829C1E4434983CF3A690C12017 /* Debug */,
+				C7E474A03CAE21F1CB6046E7344C59BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB32C197C6006011AFC08A832C209676 /* Build configuration list for PBXNativeTarget "IHKeyboardAvoiding" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AF2B344C43105C4B4B770C4EE0D98D0 /* Debug */,
+				F7B889CC1F640131AC8408DE8EC84146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF614B84CC3A9BCE3AC78D20061EA771 /* Build configuration list for PBXNativeTarget "Pods-Tip Calcly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD240B8F515F20514A70C3EB96F92B8 /* Debug */,
+				F5D0FA78FA5050E938A284734BB9D193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
