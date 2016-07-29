@@ -27,15 +27,32 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var tipAmount: UITextField!
     @IBOutlet weak var canChangeValue: UISwitch!
     
+    var delegat: cellModelChanged?
+    
     @IBAction func canChangeVal(sender: AnyObject) {
-        print(canChangeValue.on)
+        let lockSwitch = sender as! UISwitch
+        delegat!.cellModelSwitchTapped(self, isSwitchOn: lockSwitch.on)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
     
     weak var delegate:TCTableViewCellProtocol?
     
     var oldTotalAmount:Double?
     var oldTipAmount:Double?
+    
+    override func prepareForReuse() {
+        canChangeValue.setOn(false, animated: false)
+    }
     
     
     var myCellDetails:CellValues? {
@@ -108,14 +125,9 @@ class ListResultsTableViewCell: UITableViewCell {
     {
         self.totalAmount.resignFirstResponder()
         self.tipAmount.resignFirstResponder()
-        if canChangeValue.on == true {
-            if let delegate = delegate {
+        if let delegate = delegate {
             
             delegate.calcAndReload()
-            }
-        }
-        else {
-            return
         }
     }
     

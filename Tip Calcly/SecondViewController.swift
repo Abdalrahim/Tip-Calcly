@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import IHKeyboardAvoiding
 
-class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITextFieldDelegate, TCTableViewCellProtocol {
+protocol cellModelChanged {
+    func cellModelSwitchTapped(model: ListResultsTableViewCell, isSwitchOn: Bool)
+}
+
+class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITextFieldDelegate, TCTableViewCellProtocol, cellModelChanged {
     
     
     @IBOutlet weak var numGuests: UITextField!
@@ -27,7 +32,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        
         //Picker View
         numGuestpickerView = UIPickerView()
         numGuestpickerView.delegate = self
@@ -65,7 +69,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         }
         
     }
-    
 }
 
 // MARK: TCTableViewCellProtocol protocol
@@ -126,14 +129,21 @@ extension SecondViewController{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! ListResultsTableViewCell
+        let model = TCHelperClass.tcCellValues![indexPath.row]
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
-        
+        cell.canChangeValue.setOn(model.isCellLocked, animated: true)
         
         cell.delegate = self
+        cell.delegat = self
         
         return cell
         
+    }
+    
+    func cellModelSwitchTapped(model: ListResultsTableViewCell, isSwitchOn: Bool) {
+        let model = TCHelperClass.tcCellValues![(tableView.indexPathForCell(model)?.row)!]
+        model.isCellLocked = isSwitchOn
     }
     
 }

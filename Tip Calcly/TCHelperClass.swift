@@ -43,7 +43,7 @@ class TCHelperClass {
             tcCellValues = [CellValues]()
             
             for _ in 0..<numGuests {
-                tcCellValues?.append(CellValues(perPersonTotal: totalPerPersonAmount, perPersonTip: perPersonTipAmount))
+                tcCellValues?.append(CellValues(perPersonTotal: totalPerPersonAmount, perPersonTip: perPersonTipAmount, isCellLocked:false))
             }
         }
         

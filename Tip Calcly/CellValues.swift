@@ -16,12 +16,12 @@ class CellValues {
     var isCellModified:Bool
     
     
-    init(perPersonTotal:Double,perPersonTip:Double) {
+    init( perPersonTotal:Double, perPersonTip:Double, isCellLocked:Bool) {
         
         self.perPersonTotal = perPersonTotal
         self.perPersonTip   = perPersonTip
         
-        isCellLocked = false
+        self.isCellLocked = isCellLocked
         isCellModified = false
     }
     
