@@ -14,6 +14,7 @@ protocol TCTableViewCellProtocol:class  {
 }
 
 
+
 class ListResultsTableViewCell: UITableViewCell {
     
     //Pseudo code
@@ -26,12 +27,19 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var totalAmount: UITextField!
     @IBOutlet weak var tipAmount: UITextField!
     @IBOutlet weak var canChangeValue: UISwitch!
+    var cellIsLocked: Bool?{
+        didSet{
+            myCellDetails!.isCellLocked = cellIsLocked!
+        }
+    }
     
     var delegat: cellModelChanged?
     
     @IBAction func canChangeVal(sender: AnyObject) {
         let lockSwitch = sender as! UISwitch
+        print(cellIsLocked)
         delegat!.cellModelSwitchTapped(self, isSwitchOn: lockSwitch.on)
+        cellIsLocked = lockSwitch.on
     }
     
     override func awakeFromNib() {
@@ -51,7 +59,7 @@ class ListResultsTableViewCell: UITableViewCell {
     var oldTipAmount:Double?
     
     override func prepareForReuse() {
-        canChangeValue.setOn(false, animated: false)
+        canChangeValue.setOn(true, animated: false)
     }
     
     
@@ -65,22 +73,16 @@ class ListResultsTableViewCell: UITableViewCell {
                 
                 self.totalAmount.text = String(myCellDetails.perPersonTotal)
                 self.tipAmount.text = String(myCellDetails.perPersonTip)
-                
-                if oldValue == nil {
-                    
-                    oldTotalAmount = Double(totalAmount.text!)
-                    totalAmount.addTarget(self, action: #selector(totalFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-                    
-                    oldTipAmount = Double(tipAmount.text!)
-                    tipAmount.addTarget(self, action: #selector(tipFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                    if oldValue == nil {
+                        oldTotalAmount = Double(totalAmount.text!)
+                        totalAmount.addTarget(self, action: #selector(totalFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+                        
+                        oldTipAmount = Double(tipAmount.text!)
+                        tipAmount.addTarget(self, action: #selector(tipFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
                 }
-                
             }
-            
         }
-        
     }
-    
     func totalFieldDidChange(textField: UITextField) {
         
         if let value = Double(textField.text!) {
@@ -98,7 +100,6 @@ class ListResultsTableViewCell: UITableViewCell {
         
         
     }
-    
     //add calculate button
     
     func addDoneButtonOnKeyboard()
@@ -108,7 +109,7 @@ class ListResultsTableViewCell: UITableViewCell {
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Recalculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
-        
+
         var items = [UIBarButtonItem]()
         items.append(flexSpace)
         items.append(done)

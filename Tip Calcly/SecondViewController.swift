@@ -133,7 +133,6 @@ extension SecondViewController{
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
         cell.canChangeValue.setOn(model.isCellLocked, animated: true)
-        
         cell.delegate = self
         cell.delegat = self
         
