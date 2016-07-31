@@ -96,6 +96,17 @@ class ListResultsTableViewCell: UITableViewCell {
         
         myCellDetails!.isCellModified = true
         
+        if canChangeValue.on == true {
+            
+            myCellDetails!.isCellLocked = false
+            
+        }
+        else {
+            
+            myCellDetails!.isCellLocked = true
+            
+        }
+        
         oldTotalAmount = myCellDetails!.perPersonTotal
         
         
@@ -145,16 +156,7 @@ class ListResultsTableViewCell: UITableViewCell {
         
         myCellDetails!.isCellModified = true
         
-        if canChangeValue.on == true {
-            
-            myCellDetails!.isCellLocked = false
-            
-        }
-        else {
-            
-            myCellDetails!.isCellLocked = true
-            
-        }
+        
         
         
         oldTipAmount = myCellDetails!.perPersonTip

@@ -73,15 +73,16 @@ class TCHelperClass {
                     tcCellValue.perPersonTotal = perPersonAmount
                 }
             }
-            for tcCellValue in tcCellValues!  {
-                if tcCellValue.isCellLocked == Optional(false) {
-                    if tcCellValue.isCellModified {
-                        tcCellValue.isCellModified = false
-                    } else {
-                        return
-                    }
-                }
-            }
+//            for tcCellValue in tcCellValues!  {
+//                if tcCellValue.isCellLocked == Optional(false) {
+//                        tcCellValue.isCellModified = true
+//                    } else if tcCellValue.isCellLocked == Optional(true) {
+//                    
+//                    tcCellValue.isCellModified = false
+//                        return
+//                
+//                }
+//            }
         }
     }
 }
