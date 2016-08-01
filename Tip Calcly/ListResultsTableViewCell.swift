@@ -83,6 +83,7 @@ class ListResultsTableViewCell: UITableViewCell {
             }
         }
     }
+    
     func totalFieldDidChange(textField: UITextField) {
         
         if let value = Double(textField.text!) {
@@ -96,16 +97,7 @@ class ListResultsTableViewCell: UITableViewCell {
         
         myCellDetails!.isCellModified = true
         
-        if canChangeValue.on == true {
-            
-            myCellDetails!.isCellLocked = false
-            
-        }
-        else {
-            
-            myCellDetails!.isCellLocked = true
-            
-        }
+        
         
         oldTotalAmount = myCellDetails!.perPersonTotal
         
@@ -155,9 +147,6 @@ class ListResultsTableViewCell: UITableViewCell {
         }
         
         myCellDetails!.isCellModified = true
-        
-        
-        
         
         oldTipAmount = myCellDetails!.perPersonTip
         

@@ -73,6 +73,7 @@ class TCHelperClass {
                     tcCellValue.perPersonTotal = perPersonAmount
                 }
             }
+            
 //            for tcCellValue in tcCellValues!  {
 //                if tcCellValue.isCellLocked == Optional(false) {
 //                        tcCellValue.isCellModified = true

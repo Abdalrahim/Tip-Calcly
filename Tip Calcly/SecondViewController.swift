@@ -52,6 +52,35 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         super.viewDidDisappear(animated)
     }
     
+    func subscribeToKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:
+            UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:
+            UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification){
+        if keyboardIsDisplayed == false {
+            keyboardIsDisplayed = true
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification){
+        if keyboardIsDisplayed == true {
+            keyboardIsDisplayed = false
+        }
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     func calculateResults() {
         
         if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
@@ -62,7 +91,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             TCHelperClass.billAmount = billAmount
             TCHelperClass.numGuests = numGuests
             TCHelperClass.tipPercent = tipPercent
-            
             
             tableView.reloadData()
             
