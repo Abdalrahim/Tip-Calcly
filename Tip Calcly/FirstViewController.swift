@@ -8,8 +8,9 @@
 
 import UIKit
 
-class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var bottomView: UIView!
     
     @IBOutlet weak var numGuests: UITextField!
     @IBOutlet weak var tipPercent: UITextField!
@@ -23,78 +24,134 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
     
+    @IBAction func doCalculate(sender: AnyObject) {
+        
+        calculateResults()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        TCHelperClass.isFirstVC = true
+        
+    }
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
+        
+        //initially hide Results
+        bottomView.alpha = 0
+        
+        //Set Master Data
+        CellData.setGuestValues()
+        CellData.setTipValues()
+        //hideKeyboardWhenTappedAround()
+        //Text Field Delegates
+        numGuests.delegate = self
+        tipPercent.delegate = self
         
         //Picker View
         numGuestpickerView = UIPickerView()
         numGuestpickerView.delegate = self
+        numGuestpickerView.backgroundColor = CellData.pickerBkgColor
+        
         
         tipPercentpickerView = UIPickerView()
         tipPercentpickerView.delegate = self
+        tipPercentpickerView.backgroundColor = CellData.pickerBkgColor
         
         numGuests.inputView = numGuestpickerView
         tipPercent.inputView = tipPercentpickerView
         
-        self.addDoneButtonOnKeyboard()
+        // Done button on keyboard
+        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: billAmount)
+        
+        //Tap gesture recognizer to dismiss Keyboard and Picker View
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
     }
+    
+    
     
     func calculateResults() {
         
-        if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
-            totalTipToPay.text = String(round( billAmount * tipPercent / 100 * 100 ) / 100)
-            totalToPay.text =  String (round ((billAmount + Double(totalTipToPay.text!)!) * 100 ) / 100 )
-            totalPerPerson.text = String ( round ( Double(totalToPay.text!)!/Double(numGuests) * 100.0  ) / 100 )
-            tipPerPerson.text = String ( round ( Double(totalTipToPay.text!)!/Double(numGuests) * 100.0  ) / 100 )
+        //resign first responder
+        dismissKeyboard()
+        
+        //calculate results only if key values are populated
+        if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
+            tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
+            billAmount = Double(billAmount.text!){
+            
+            TCHelperClass.billAmount = billAmount
+            TCHelperClass.numGuests = numGuests
+            TCHelperClass.tipPercent = tipPercent
+            
+            totalTipToPay.text = String(format: "%.2f", TCHelperClass.getTotalTip())
+            
+            totalToPay.text =  String(format: "%.2f", billAmount + TCHelperClass.getTotalTip())
+            
+            tipPerPerson.text = String(format: "%.2f", TCHelperClass.getPerPersonTip() )
+            
+            totalPerPerson.text = String(format: "%.2f", TCHelperClass.getPerPersonAmount() + TCHelperClass.getPerPersonTip())
+            
+            
+            //show the results if bottom view is hidden
+            if self.bottomView.alpha == 0.0 {
+                UIView.animateWithDuration(CellData.animationDuration) {
+                    self.bottomView.alpha = 1.0
+                }
+            }
+            
+        } else {
+            
+            // make all key fields blank
+            numGuests.text = ""
+            tipPercent.text = ""
+            billAmount.text = ""
+            
+            //hide the bottom view
+            if self.bottomView.alpha == 1.0 {
+                
+                UIView.animateWithDuration(CellData.animationDuration) {
+                    self.bottomView.alpha = 0.0
+                }
+                
+            }
             
         }
         
+        
     }
-    
     
     
 }
 
-// Logic for adding the Return button on the Decimal Keyboard
+// MARK: Resign first responder Logic
 extension FirstViewController{
-    
-    func addDoneButtonOnKeyboard()
-    {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        doneToolbar.barStyle = UIBarStyle.Default
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Calculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
-        
-        
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-        
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        self.billAmount.inputAccessoryView = doneToolbar
-        
-    }
     
     func doneButtonAction()
     {
-        self.billAmount.resignFirstResponder()
-        calculateResults()
+        billAmount.resignFirstResponder()
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     
 }
 
-
-// Picker View Logic
+// MARK: Picker View logic
 extension FirstViewController{
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
+        //For example, if you wanted to do a picker for selecting time,
+        //you might have 3 components; one for each of hour, minutes and seconds
         return 1
     }
     
@@ -102,10 +159,10 @@ extension FirstViewController{
         
         if pickerView == numGuestpickerView{
             
-            return TCHelperClass.numGuestOptions.count
+            return CellData.guests.count
         }
         else {
-            return TCHelperClass.tipPercentOptions.count
+            return CellData.tips.count
         }
         
         
@@ -115,32 +172,69 @@ extension FirstViewController{
         
         if pickerView == numGuestpickerView{
             
-            return TCHelperClass.numGuestOptions[row]
+            return CellData.guests[row]
         }
         else {
             
-            return TCHelperClass.tipPercentOptions[row]
+            return CellData.tips[row]
         }
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        
+        pickerView.reloadAllComponents()
+        
         if pickerView == numGuestpickerView{
             
-            numGuests.text = TCHelperClass.numGuestOptions[row]
-            calculateResults()
+            numGuests.text = CellData.guests[row]
             
         } else {
             
-            tipPercent.text =  TCHelperClass.tipPercentOptions[row]
-            calculateResults()
+            tipPercent.text =  CellData.tips[row]
+        }
+        
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.grayColor()
+        
+        if pickerView == numGuestpickerView{
+            return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
+        } else {
+            return NSAttributedString(string: CellData.tips[row], attributes: [NSForegroundColorAttributeName: color])
+        }
+    }
+    
+    
+    
+}
+
+//MARK: UITextFieldDelegate implementation
+extension FirstViewController {
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+        if textField.text == "" {
+            
+            if textField == numGuests {
+                
+                numGuests.text = CellData.guests[numGuestpickerView.selectedRowInComponent(0)]
+                
+            }
+            if textField == tipPercent {
+                
+                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRowInComponent(0)]
+            }
         }
         
         
     }
     
 }
-extension UIViewController {
+/*extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -150,3 +244,4 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+*/

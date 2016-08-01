@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 class TCHelperClass {
     
-    static let numGuestOptions = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"]
-    static let tipPercentOptions = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"]
+    static var isFirstVC:Bool = true
+    
     static var billAmount:Double? {
         didSet {
             setInitialCellValues()
@@ -30,60 +31,150 @@ class TCHelperClass {
         }
     }
     
+    
     static var tcCellValues:[CellValues]?
-    static func setInitialCellValues() -> Void {
+    
+    static func getTotalTip() -> Double{
         
-        if let billAmount = billAmount,numGuests = numGuests,tipPercent = tipPercent{
-            let perPersonAmount = round(100 * (billAmount / Double(numGuests)) ) / 100
-            let perPersonTipAmount =  round(tipPercent * perPersonAmount / 100  * 100)/100
-            let totalPerPersonAmount = round( (perPersonAmount + perPersonTipAmount) * 100 ) / 100
-            tcCellValues = [CellValues]()
+        if let billAmount = billAmount, tipPercent = tipPercent {
             
-            for _ in 0..<numGuests {
-                tcCellValues?.append(CellValues(perPersonTotal: totalPerPersonAmount, perPersonTip: perPersonTipAmount, isCellLocked: true))
-            }
+            return round( billAmount * tipPercent / 100 * 1000 ) / 1000
+            
         }
+        
+        return 0.0
     }
     
-    static func seCellValues() -> Void {
+    
+    static func getPerPersonTip() -> Double{
+        
+        if let numGuests = numGuests {
+            return round( TCHelperClass.getTotalTip() / Double(numGuests) * 1000 ) / 1000
+        }
+        
+        return 0.0
+    }
+    
+    
+    static func getPerPersonAmount() -> Double{
+        
+        if let numGuests = numGuests, billAmount = billAmount {
+            return round( billAmount / Double(numGuests) * 1000 ) / 1000
+        }
+        
+        return 0.0
+    }
+    
+    
+    static func setInitialCellValues() -> Void {
+        
+        if let _ = billAmount,numGuests = numGuests,_ = tipPercent{
+            
+            tcCellValues = [] // some redundancy will happen here
+            
+            //initialize only if second VC is active
+            if isFirstVC == false{
+                for _ in 0..<numGuests {
+                    tcCellValues?.append(CellValues(perPersonTotal: TCHelperClass.getPerPersonAmount(), perPersonTip: TCHelperClass.getPerPersonTip()))
+                }
+            }
+        }
+        
+        
+    }
+    
+    static func resetCellValues() -> Void {
         
         var tips:Double = 0.0
         var total:Double = 0.0
+        
         var counter = 0
         
         //get modified tips and amounts
         for tcCellValue in tcCellValues!  {
-            if tcCellValue.isCellModified {
+            
+            if tcCellValue.isCellLocked {
+                
                 tips += tcCellValue.perPersonTip
                 total += tcCellValue.perPersonTotal
+                
                 counter = counter + 1
             }
+            
         }
+        // do this only if there are some guests
+        // whose total amount is not modified
         if ( numGuests! - counter ) > 0 {
-            //calculate the tips and amounts for the non modified
-            let totalTip =        round( tipPercent! / 100 * billAmount! * 100) / 100
-            let totalAmount =     round ((totalTip + billAmount!) * 100 ) / 100
-            let perPersonTip =    round ( ( totalTip - tips ) / Double( numGuests! - counter ) * 100 ) / 100
-            let perPersonAmount = round ( ( totalAmount - total ) / Double( numGuests! - counter ) * 100 ) / 100
+            
+            let perPersonTip =    round ( ( TCHelperClass.getTotalTip() - tips ) / Double( numGuests! - counter ) * 1000 ) / 1000
+            
+            let perPersonAmount =    round ( ( billAmount! - total ) / Double( numGuests! - counter ) * 1000 ) / 1000
             
             for tcCellValue in tcCellValues!  {
                 
-                if !tcCellValue.isCellModified {
+                if ( !tcCellValue.isCellLocked)  {
+                    
                     tcCellValue.perPersonTip = perPersonTip
                     tcCellValue.perPersonTotal = perPersonAmount
+                    
                 }
+                
             }
             
-//            for tcCellValue in tcCellValues!  {
-//                if tcCellValue.isCellLocked == Optional(false) {
-//                        tcCellValue.isCellModified = true
-//                    } else if tcCellValue.isCellLocked == Optional(true) {
-//                    
-//                    tcCellValue.isCellModified = false
-//                        return
-//                
-//                }
-//            }
+            
+            
         }
+        
+        
     }
+    
+    static func recalcTipAndAmountValues(totalAmount:Double) -> (Double,Double) {
+        
+        if let tipPercent = tipPercent {
+            
+            let amount =  round ( ( totalAmount / (1 + tipPercent/100) ) * 1000 ) / 1000
+            let tipAmount = round ( amount * tipPercent * 10) / 1000
+            
+            
+            return (tipAmount,amount)
+        }
+        
+        return (0.0,0.0)
+    }
+    
+    /*
+     * http://stackoverflow.com/questions/35689528/add-a-view-on-top-of-the-keyboard
+     * using-inputaccessoryview-swift
+     */
+    static func addDoneButtonOnKeyboard(sendingVC:AnyObject,sendingTextFld:UITextField)
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        doneToolbar.barTintColor = CellData.pickerBkgColor
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: sendingVC, action: #selector(doneButtonAction))
+        
+        done.tintColor = UIColor.whiteColor()
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        sendingTextFld.inputAccessoryView = doneToolbar
+        
+    }
+    
+    @objc static func doneButtonAction()
+    {
+        print("Dummy: Not used")
+        
+    }
+    
+    
 }

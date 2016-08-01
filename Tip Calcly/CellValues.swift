@@ -10,19 +10,19 @@ import UIKit
 
 class CellValues {
     
-    var perPersonTotal:Double
+    var perPersonTotal:Double //excludes the tip amount
     var perPersonTip:Double
-    var isCellLocked:Bool
-    var isCellModified:Bool
+    var isCellLocked:Bool     // this happens when a cell amount is changed
     
     
-    init( perPersonTotal:Double, perPersonTip:Double, isCellLocked:Bool) {
+    
+    init(perPersonTotal:Double,perPersonTip:Double) {
         
         self.perPersonTotal = perPersonTotal
         self.perPersonTip   = perPersonTip
         
-        self.isCellLocked = isCellLocked
-        isCellModified = false
+        isCellLocked = false
+        
     }
     
     

@@ -9,12 +9,10 @@
 import UIKit
 import IHKeyboardAvoiding
 
-protocol cellModelChanged {
-    func cellModelSwitchTapped(model: ListResultsTableViewCell, isSwitchOn: Bool)
-}
 
-class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITextFieldDelegate, TCTableViewCellProtocol, cellModelChanged {
+class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource,TCTableViewCellProtocol,UITextFieldDelegate {
     
+    @IBOutlet weak var bottomView: UIView!
     
     @IBOutlet weak var numGuests: UITextField!
     @IBOutlet weak var tipPercent: UITextField!
@@ -28,44 +26,108 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
     
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        //Identify the active VC
+        TCHelperClass.isFirstVC = false
+    }
+    
     override func viewDidLoad() {
         
+        
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
+        IHKeyboardAvoiding.setAvoidingView(tableView)
+        
+        //initially hide Results
+        bottomView.alpha = 0
+        
+        //Text Field Delegates
+        numGuests.delegate = self
+        tipPercent.delegate = self
+        
+        //Set Master Data
+        CellData.setGuestValues()
+        CellData.setTipValues()
+        
         //Picker View
         numGuestpickerView = UIPickerView()
         numGuestpickerView.delegate = self
+        numGuestpickerView.backgroundColor = CellData.pickerBkgColor
         
         tipPercentpickerView = UIPickerView()
         tipPercentpickerView.delegate = self
+        tipPercentpickerView.backgroundColor = CellData.pickerBkgColor
         
         numGuests.inputView = numGuestpickerView
         tipPercent.inputView = tipPercentpickerView
         
         tableView.dataSource = self
         
-        IHKeyboardAvoiding.setAvoidingView(tableView)
+        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: billAmount)
         
-        self.addDoneButtonOnKeyboard()
+        //Tap gesture recognizer
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    @IBAction func doCalculate(sender: AnyObject) {
+        
+        calculateResults()
         
     }
     
     func calculateResults() {
         
-        if let numGuests = Int(numGuests.text!), tipPercent = Double(tipPercent.text!), billAmount = Double(billAmount.text!){
-            
-            totalTipToPay.text = String(round( billAmount * tipPercent / 100 * 100 ) / 100)
-            totalToPay.text =  String (round ((billAmount + Double(totalTipToPay.text!)!) * 100 ) / 100 )
+        //resign first responder
+        dismissKeyboard()
+        
+        if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
+            tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
+            billAmount = Double(billAmount.text!){
             
             TCHelperClass.billAmount = billAmount
             TCHelperClass.numGuests = numGuests
             TCHelperClass.tipPercent = tipPercent
             
+            totalTipToPay.text = String(format: "%.2f", TCHelperClass.getTotalTip())
+            totalToPay.text =  String(format: "%.2f", billAmount + TCHelperClass.getTotalTip())
+            
             tableView.reloadData()
+            
+            //show the results
+            if self.bottomView.alpha == 0.0 {
+                
+                UIView.animateWithDuration(CellData.animationDuration) {
+                    self.bottomView.alpha = 1.0
+                }
+            }
+            
+        }else {
+            
+            numGuests.text = ""
+            tipPercent.text = ""
+            billAmount.text = ""
+            
+            //hide the bottom view
+            if self.bottomView.alpha == 1.0 {
+                
+                UIView.animateWithDuration(CellData.animationDuration) {
+                    self.bottomView.alpha = 0.0
+                }
+                
+            }
             
         }
         
+        
+        
     }
+    
+    
+    
 }
 
 // MARK: TCTableViewCellProtocol protocol
@@ -73,8 +135,24 @@ extension SecondViewController{
     
     func calcAndReload() -> Void {
         
-        TCHelperClass.seCellValues()
+        TCHelperClass.resetCellValues()
         tableView.reloadData()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        view.frame.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        
+        view.frame.origin.y += getKeyboardHeight(notification)
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.CGRectValue().height
     }
     
 }
@@ -82,29 +160,15 @@ extension SecondViewController{
 // MARK: Logic for adding the Return button on the Decimal Keyboard
 extension SecondViewController{
     
-    func addDoneButtonOnKeyboard()
-    {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        doneToolbar.barStyle = UIBarStyle.Default
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Calculate", style: UIBarButtonItemStyle.Done, target: self, action: #selector(doneButtonAction))
-        
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-        
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        self.billAmount.inputAccessoryView = doneToolbar
-        
-    }
     
     func doneButtonAction()
     {
         self.billAmount.resignFirstResponder()
-        calculateResults()
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     
@@ -125,22 +189,15 @@ extension SecondViewController{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! ListResultsTableViewCell
-        let model = TCHelperClass.tcCellValues![indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellData.cellIdentifier) as! ListResultsTableViewCell
         
         cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
-        cell.canChangeValue.setOn(model.isCellLocked, animated: true)
-        cell.cellIsLocked = true
+        cell.personLabel.text = "Guest \(indexPath.row + 1)"
+        
         cell.delegate = self
-        cell.delegat = self
         
         return cell
         
-    }
-    
-    func cellModelSwitchTapped(model: ListResultsTableViewCell, isSwitchOn: Bool) {
-        let model = TCHelperClass.tcCellValues![(tableView.indexPathForCell(model)?.row)!]
-        model.isCellLocked = isSwitchOn
     }
     
 }
@@ -149,6 +206,9 @@ extension SecondViewController{
 extension SecondViewController{
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
+        //For example, if you wanted to do a picker for selecting time,
+        //you might have 3 components; one for each of hour, minutes and seconds
         return 1
     }
     
@@ -156,44 +216,75 @@ extension SecondViewController{
         
         if pickerView == numGuestpickerView{
             
-            return TCHelperClass.numGuestOptions.count
+            return CellData.guests.count
         }
         else {
-            return TCHelperClass.tipPercentOptions.count
+            return CellData.tips.count
         }
         
         
     }
-    
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == numGuestpickerView{
             
-            return TCHelperClass.numGuestOptions[row]
+            return CellData.guests[row]
         }
         else {
             
-            return TCHelperClass.tipPercentOptions[row]
+            return CellData.tips[row]
         }
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        pickerView.reloadAllComponents()
+        
         if pickerView == numGuestpickerView{
             
-            numGuests.text = TCHelperClass.numGuestOptions[row]
-            calculateResults()
+            numGuests.text = CellData.guests[row]
             
         } else {
             
-            tipPercent.text =  TCHelperClass.tipPercentOptions[row]
-            calculateResults()
+            tipPercent.text =  CellData.tips[row]
         }
         
         
     }
     
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.grayColor()
+        
+        if pickerView == numGuestpickerView{
+            return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
+        } else {
+            return NSAttributedString(string: CellData.tips[row], attributes: [NSForegroundColorAttributeName: color])
+        }
+    }
     
 }
 
+//MARK: UITextFieldDelegate implementation
+extension SecondViewController {
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+        if textField.text == "" {
+            
+            if textField == numGuests {
+                
+                numGuests.text = CellData.guests[numGuestpickerView.selectedRowInComponent(0)]
+                
+            }
+            if textField == tipPercent {
+                
+                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRowInComponent(0)]
+            }
+        }
+        
+        
+    }
+    
+}
