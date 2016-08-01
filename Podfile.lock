@@ -1,12 +1,17 @@
 PODS:
   - IHKeyboardAvoiding (2.5)
+  - Mixpanel (3.0.0):
+    - Mixpanel/Mixpanel (= 3.0.0)
+  - Mixpanel/Mixpanel (3.0.0)
 
 DEPENDENCIES:
   - IHKeyboardAvoiding
+  - Mixpanel
 
 SPEC CHECKSUMS:
   IHKeyboardAvoiding: 8f14fed93405dd2c44ce070a26f780d9e477538c
+  Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
 
-PODFILE CHECKSUM: 8338ea2d8d95acd05919fd1ac851e68f32004a3a
+PODFILE CHECKSUM: 39ba22996717e5351f89505c55b1c3aa5f384067
 
 COCOAPODS: 1.0.1

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Make School. All rights reserved.
 //
 
+import Mixpanel
 import UIKit
 
 class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
@@ -25,7 +26,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     var tipPercentpickerView:UIPickerView!
     
     @IBAction func doCalculate(sender: AnyObject) {
-        
+        Mixpanel.sharedInstance().track("Equal Calculated")
         calculateResults()
     }
     
@@ -39,6 +40,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        Mixpanel.sharedInstance().track("Equal Share Opened")
         
         //initially hide Results
         bottomView.alpha = 0
@@ -234,14 +236,3 @@ extension FirstViewController {
     }
     
 }
-/*extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-*/

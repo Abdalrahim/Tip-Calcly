@@ -8,6 +8,7 @@
 
 import UIKit
 import IHKeyboardAvoiding
+import Mixpanel
 
 
 class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource,TCTableViewCellProtocol,UITextFieldDelegate {
@@ -27,7 +28,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var tipPercentpickerView:UIPickerView!
     
     override func viewDidAppear(animated: Bool) {
-        
+        Mixpanel.sharedInstance().track("UnEqual Share Opened")
         super.viewDidAppear(animated)
         
         //Identify the active VC
@@ -76,7 +77,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func doCalculate(sender: AnyObject) {
         
         calculateResults()
-        
+        Mixpanel.sharedInstance().track("UnEqual Calculated")
     }
     
     func calculateResults() {

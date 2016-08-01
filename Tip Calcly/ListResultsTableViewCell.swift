@@ -25,7 +25,6 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var totalAmount: UITextField!
     @IBOutlet weak var rowIsLocked: UISwitch!
     weak var delegate:TCTableViewCellProtocol?
-    
     var oldAmountValue:Double!
     
     var myCellDetails:CellValues? {
@@ -40,7 +39,6 @@ class ListResultsTableViewCell: UITableViewCell {
                 self.totalAmount.text = String(format: "%.2f", myCellDetails.perPersonTip + myCellDetails.perPersonTotal)
                 
                 oldAmountValue = Double(self.totalAmount.text!)
-                
                 if myCellDetails.isCellLocked {
                     
                     rowIsLocked.setOn(true, animated: false)
@@ -52,7 +50,6 @@ class ListResultsTableViewCell: UITableViewCell {
                         rowIsLocked.setOn(false, animated: false)
                         
                     }
-                    
                 }
                 
                 if oldValue == nil {
@@ -89,14 +86,15 @@ class ListResultsTableViewCell: UITableViewCell {
     
     
     
-    
     func totalAmountDidChange(textField: UITextField) {
         
         if let changedAmountValue = Double(textField.text!) {
-            
+            /*
+            if changedAmountValue < 0{
+                totalAmount.textColor = UIColor.redColor()
+            } */
             // only if the new value is different from the old one
             if ( oldAmountValue != changedAmountValue) {
-                
                 (myCellDetails!.perPersonTip,myCellDetails!.perPersonTotal) = TCHelperClass.recalcTipAndAmountValues(changedAmountValue)
                 
                 // trigger both the UI component and the cell value
@@ -112,10 +110,7 @@ class ListResultsTableViewCell: UITableViewCell {
                 oldAmountValue = changedAmountValue
             }
         }
-        
     }
-    
-    
 }
 
 extension ListResultsTableViewCell {
