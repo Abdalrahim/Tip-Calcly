@@ -563,6 +563,7 @@
                                                                                         <constraint firstAttribute="width" constant="49" id="5Rd-2h-8Qd"/>
                                                                                     </constraints>
                                                                                     <color key="onTintColor" red="0.043137254901960784" green="0.20392156862745098" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="thumbTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <connections>
                                                                                         <action selector="sliderDidChange:" destination="g8b-Bx-yBm" eventType="valueChanged" id="aLg-k6-NPe"/>
                                                                                     </connections>

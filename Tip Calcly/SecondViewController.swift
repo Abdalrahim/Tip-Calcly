@@ -256,7 +256,7 @@ extension SecondViewController{
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.grayColor()
+        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.purpleColor()
         
         if pickerView == numGuestpickerView{
             return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
