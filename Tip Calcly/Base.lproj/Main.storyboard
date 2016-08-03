@@ -18,11 +18,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tip Calcly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awk-6p-Z0q">
+                                <rect key="frame" x="0.0" y="20" width="320" height="26"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="QnJ-5K-Ceq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="23"/>
+                                <color key="textColor" red="0.47843137254901963" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Z45-nC-hSu">
-                                <rect key="frame" x="16" y="20" width="288" height="499"/>
+                                <rect key="frame" x="16" y="49" width="288" height="470"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9kx-yb-a8h" userLabel="Input View">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="499"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="470"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IJF-jV-qb3">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="156"/>
@@ -124,7 +134,7 @@
                                                     <constraint firstItem="Zep-LA-Sk2" firstAttribute="height" secondItem="L8w-8D-zPw" secondAttribute="height" id="xh7-dt-iim"/>
                                                 </constraints>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-Pm-VCE" userLabel="Results Table View">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-Pm-VCE" userLabel="Results Table View">
                                                 <rect key="frame" x="0.0" y="164" width="288" height="335"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H55-hW-8Tf">
@@ -261,11 +271,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.72549019607843135" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="awk-6p-Z0q" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="LWH-wI-o0u"/>
                             <constraint firstItem="Z45-nC-hSu" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="Lie-ze-POo"/>
                             <constraint firstItem="Z45-nC-hSu" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="U3b-Bb-IgW"/>
                             <constraint firstItem="Z45-nC-hSu" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="Uwu-Nc-HwG"/>
+                            <constraint firstItem="awk-6p-Z0q" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="hha-Rw-sFe"/>
+                            <constraint firstItem="awk-6p-Z0q" firstAttribute="centerX" secondItem="Z45-nC-hSu" secondAttribute="centerX" id="k84-LT-zR3"/>
+                            <constraint firstItem="Z45-nC-hSu" firstAttribute="top" secondItem="awk-6p-Z0q" secondAttribute="bottom" constant="3" id="lfx-JT-PDU"/>
                             <constraint firstItem="Z45-nC-hSu" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="szb-aN-4Fq"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Lie-ze-POo"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Equal Share" image="Equal Sign" selectedImage="Equal Sign" id="acW-dT-cKf"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

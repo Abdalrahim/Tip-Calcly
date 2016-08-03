@@ -366,7 +366,7 @@
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Tip-Calcly";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abdalrahim.tip-calcly";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -380,7 +380,7 @@
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Tip-Calcly";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.abdalrahim.tip-calcly";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
