@@ -134,8 +134,8 @@
                                                     <constraint firstItem="Zep-LA-Sk2" firstAttribute="height" secondItem="L8w-8D-zPw" secondAttribute="height" id="xh7-dt-iim"/>
                                                 </constraints>
                                             </stackView>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-Pm-VCE" userLabel="Results Table View">
-                                                <rect key="frame" x="0.0" y="164" width="288" height="335"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-Pm-VCE" userLabel="Results Table View">
+                                                <rect key="frame" x="0.0" y="164" width="288" height="306"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H55-hW-8Tf">
                                                         <rect key="frame" x="10" y="0.0" width="268" height="150"/>
