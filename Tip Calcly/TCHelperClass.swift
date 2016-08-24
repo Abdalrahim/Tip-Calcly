@@ -15,19 +15,29 @@ class TCHelperClass {
     
     static var billAmount:Double? {
         didSet {
-            setInitialCellValues()
+            
+            if isFirstVC == false {
+                setInitialCellValues()
+            }
         }
     }
     
     static var numGuests:Int? {
         didSet {
-            setInitialCellValues()
+            
+            if isFirstVC == false {
+                setInitialCellValues()
+            }
+            
         }
     }
     
     static var tipPercent:Double? {
         didSet {
-            setInitialCellValues()
+            
+            if isFirstVC == false {
+                setInitialCellValues()
+            }
         }
     }
     
