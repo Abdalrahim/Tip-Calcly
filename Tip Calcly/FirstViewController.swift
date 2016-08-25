@@ -8,6 +8,7 @@
 
 import Mixpanel
 import UIKit
+import Firebase
 
 class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
@@ -41,6 +42,9 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         
         super.viewDidLoad()
         Mixpanel.sharedInstance().track("Equal Share Opened")
+        
+        var root = FIRApp(named:"https://tip-calcly.firebaseio.com")
+        //root?.setValue(<#T##value: AnyObject?##AnyObject?#>, forKey: <#T##String#>)
         
         //initially hide Results
         bottomView.alpha = 0

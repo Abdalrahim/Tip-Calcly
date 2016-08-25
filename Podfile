@@ -9,5 +9,5 @@ target 'Tip Calcly' do
   pod 'IHKeyboardAvoiding'
   pod ‘Mixpanel’
   # Pods for Tip Calcly
-
+  pod 'Firebase'
 end
