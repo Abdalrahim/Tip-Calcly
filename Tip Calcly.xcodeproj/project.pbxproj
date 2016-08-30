@@ -16,6 +16,7 @@
 		0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */; };
 		0FE87B7F1D40844300139B73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FE87B7D1D40844300139B73 /* Main.storyboard */; };
 		0FF4C6291D6EFCF100CF5706 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FF4C6281D6EFCF100CF5706 /* GoogleService-Info.plist */; };
+		0FF4C62D1D707B8800CF5706 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF4C62C1D707B8800CF5706 /* Currency.swift */; };
 		0FFC5BA61D376BED0036B92C /* TCHelperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */; };
 		0FFC5BA81D3879830036B92C /* CellValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC5BA71D3879830036B92C /* CellValues.swift */; };
 		894C8D55CE36F9F2774675EC /* Pods_Tip_Calcly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC43A95CD92B4A3468E57A6 /* Pods_Tip_Calcly.framework */; };
@@ -33,6 +34,7 @@
 		0FDA94471D34966E009A5118 /* ListResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListResultsTableViewCell.swift; sourceTree = "<group>"; };
 		0FE87B7E1D40844300139B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0FF4C6281D6EFCF100CF5706 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0FF4C62C1D707B8800CF5706 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		0FFC5BA51D376BED0036B92C /* TCHelperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCHelperClass.swift; sourceTree = "<group>"; };
 		0FFC5BA71D3879830036B92C /* CellValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellValues.swift; sourceTree = "<group>"; };
 		A319CFA8A7BAADD60DCA04C2 /* Pods-Tip Calcly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tip Calcly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tip Calcly/Pods-Tip Calcly.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				0FDA94461D349601009A5118 /* Controllers */,
 				0FDA94321D336E95009A5118 /* AppDelegate.swift */,
 				0FFC5BA71D3879830036B92C /* CellValues.swift */,
+				0FF4C62C1D707B8800CF5706 /* Currency.swift */,
 				0FDA94341D336E95009A5118 /* FirstViewController.swift */,
 				0FDA94361D336E95009A5118 /* SecondViewController.swift */,
 				0FE87B7D1D40844300139B73 /* Main.storyboard */,
@@ -250,6 +253,7 @@
 				0FDA94371D336E95009A5118 /* SecondViewController.swift in Sources */,
 				0FDA94331D336E95009A5118 /* AppDelegate.swift in Sources */,
 				0FDA94481D34966E009A5118 /* ListResultsTableViewCell.swift in Sources */,
+				0FF4C62D1D707B8800CF5706 /* Currency.swift in Sources */,
 				0F11EFE51D44D8E60060F7B6 /* CellData.swift in Sources */,
 				0FDA94351D336E95009A5118 /* FirstViewController.swift in Sources */,
 				0FFC5BA81D3879830036B92C /* CellValues.swift in Sources */,
@@ -296,8 +300,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -343,8 +347,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -370,8 +374,8 @@
 			baseConfigurationReference = A319CFA8A7BAADD60DCA04C2 /* Pods-Tip Calcly.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -387,8 +391,8 @@
 			baseConfigurationReference = CA3F7D5A3ED8CE8CC1ED892C /* Pods-Tip Calcly.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Tip Calcly/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

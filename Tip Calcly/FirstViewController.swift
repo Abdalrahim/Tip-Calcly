@@ -8,11 +8,17 @@
 
 import Mixpanel
 import UIKit
-import Firebase
+import IHKeyboardAvoiding
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
+import AlamofireNetworkActivityIndicator
 
 class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var bottomView: UIView!
+    
+    var allXRArray :[Currency] = []
     
     @IBOutlet weak var numGuests: UITextField!
     @IBOutlet weak var tipPercent: UITextField!
@@ -23,8 +29,18 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var totalPerPerson: UITextField!
     @IBOutlet weak var tipPerPerson: UITextField!
     
+    @IBOutlet weak var basePickerTextField: UITextField!
+    @IBOutlet weak var targetPickerTextField: UITextField!
+    
+    @IBOutlet weak var currencyConvView: UIStackView!
+    
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
+    
+    var basePickerView = UIPickerView()
+    var targetPickerView = UIPickerView()
+    
+    var pickOption: [String] = []
     
     @IBAction func doCalculate(sender: AnyObject) {
         Mixpanel.sharedInstance().track("Equal Calculated")
@@ -37,18 +53,20 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         TCHelperClass.isFirstVC = true
         
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         Mixpanel.sharedInstance().track("Equal Share Opened")
         
-        var root = FIRApp(named:"https://tip-calcly.firebaseio.com")
-        //root?.setValue(<#T##value: AnyObject?##AnyObject?#>, forKey: <#T##String#>)
-        
         //initially hide Results
         bottomView.alpha = 0
         
+        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         //Set Master Data
         CellData.setGuestValues()
         CellData.setTipValues()
@@ -62,6 +80,14 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         numGuestpickerView.delegate = self
         numGuestpickerView.backgroundColor = CellData.pickerBkgColor
         
+        self.basePickerView.delegate = self
+        self.targetPickerView.delegate = self
+        
+        basePickerTextField.inputView = self.basePickerView
+        targetPickerTextField.inputView = self.targetPickerView
+        
+        self.basePickerView.tag = 0
+        self.targetPickerView.tag = 1
         
         tipPercentpickerView = UIPickerView()
         tipPercentpickerView.delegate = self
@@ -76,6 +102,35 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         //Tap gesture recognizer to dismiss Keyboard and Picker View
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        //API
+        
+        let apiToContact = "http://apilayer.net/api/live"
+        let parameter = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
+        // This code will call the iTunes top 25 movies endpoint listed above
+        Alamofire.request(.GET, apiToContact, parameters: parameter).validate().responseJSON() { response in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    
+                    // Do what you need to with JSON here!
+                    // The rest is all boiler plate code you'll use for API requests
+                    let allXR = json["quotes"].dictionaryValue
+                    //                    var allXRDict : [String:Double] = [:]
+                    for (key,value) in allXR {
+                        //                        allXRDict[key] = value.doubleValue
+                        let curr = Currency(name: key,rate:value.doubleValue)
+                        self.allXRArray.append(curr)
+                        self.pickOption.append(curr.name)
+                        print(" THIS IS THE \(allXR.count)")
+                    }
+                    
+                }
+            case .Failure(let error):
+                print(" THIS IS A HUGGEEEEE FAILLLL\(error)")
+            }
+        }
         
     }
     
@@ -166,11 +221,14 @@ extension FirstViewController{
         if pickerView == numGuestpickerView{
             
             return CellData.guests.count
+            
+        } else if pickerView == basePickerView {
+            
+            return pickOption.count
         }
         else {
             return CellData.tips.count
         }
-        
         
     }
     
@@ -179,6 +237,10 @@ extension FirstViewController{
         if pickerView == numGuestpickerView{
             
             return CellData.guests[row]
+            
+        } else if pickerView == basePickerView {
+            
+            return pickOption[row]
         }
         else {
             
@@ -195,11 +257,17 @@ extension FirstViewController{
             
             numGuests.text = CellData.guests[row]
             
-        } else {
+        }
+        else {
             
             tipPercent.text =  CellData.tips[row]
         }
-        
+        if pickerView.tag == 0{
+            basePickerTextField.text = pickOption[row]
+        }else{
+            targetPickerTextField.text = pickOption[row]
+            
+        }
         
     }
     
@@ -213,6 +281,7 @@ extension FirstViewController{
             return NSAttributedString(string: CellData.tips[row], attributes: [NSForegroundColorAttributeName: color])
         }
     }
+    
     
     
     
