@@ -49,7 +49,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         TCHelperClass.isFirstVC = true
         
     }
@@ -61,12 +61,11 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         Mixpanel.sharedInstance().track("Equal Share Opened")
         
         //initially hide Results
         bottomView.alpha = 0
-        
-        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         
         //Set Master Data
         CellData.setGuestValues()
@@ -148,18 +147,23 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
             self.billAmount.text = ""
             return
         }
-        var baseCur = basePickerTextField.text ?? ""
-        var targetCur = targetPickerTextField.text ?? ""
-        
-        let baseRateToUSD = 1/(self.findExchange(baseCur))
-        let USDTotargetRate = self.findExchange(targetCur)
-        let baseToTargetRate = baseRateToUSD * USDTotargetRate
-        
-        var  btrUSD: Double = Double(billamountToConvert!)!
-        var btt: Double = baseToTargetRate
-        var conv : String = String(format: "%.2f", (btt * btrUSD))
-        
-        self.billAmount.text = conv
+            if self.billAmount.text == "" {
+                //doesn't proceed if bill amount was empty
+            }
+            else {
+                var baseCur = basePickerTextField.text ?? ""
+                var targetCur = targetPickerTextField.text ?? ""
+                
+                let baseRateToUSD = 1/(self.findExchange(baseCur))
+                let USDTotargetRate = self.findExchange(targetCur)
+                let baseToTargetRate = baseRateToUSD * USDTotargetRate
+                
+                var  btrUSD: Double = Double(billamountToConvert!)!
+                var btt: Double = baseToTargetRate
+                var conv : String = String(format: "%.2f", (btt * btrUSD))
+                
+                self.billAmount.text = conv
+            }
         }
         //calculate results only if key values are populated
         if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
