@@ -8,8 +8,14 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
+import AlamofireNetworkActivityIndicator
 
 class TCHelperClass {
+    
+    var allXRArray :[Currency] = []
     
     static var isFirstVC:Bool = true
     
@@ -18,6 +24,7 @@ class TCHelperClass {
             
             if isFirstVC == false {
                 setInitialCellValues()
+                
             }
         }
     }
@@ -44,10 +51,39 @@ class TCHelperClass {
     
     static var tcCellValues:[CellValues]?
     
+    static func currencyConvert() {
+        
+//        guard let amountToConvert = Optional(billAmount) else {
+//            //show error
+//            billAmount = 0
+//            return 0
+//        }
+//        
+//        var baseCur = FirstViewController.toConvert(billAmount)
+//        var targetCur = targetPickerTextField.text ?? ""
+//        
+//        let baseRateToUSD = 1/(self.findExchange(baseCur))
+//        let USDTotargetRate = self.findExchange(targetCur)
+//        let baseToTargetRate = baseRateToUSD * USDTotargetRate
+//        
+//        billAmount = String(format: "%.2f", (amountToConvert * baseToTargetRate))
+//        
+//        return 0.0
+        return billAmount = 3
+    }
+    
+    func findExchange(name: String)->Double{
+        for c in self.allXRArray{
+            if c.name == name{
+                return c.rate
+            }
+        }
+        return 0.0
+    }
+    
     static func getTotalTip() -> Double{
         
         if let billAmount = billAmount, tipPercent = tipPercent {
-            
             return round( billAmount * tipPercent / 100 * 1000 ) / 1000
             
         }

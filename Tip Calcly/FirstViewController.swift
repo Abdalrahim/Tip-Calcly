@@ -67,10 +67,11 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         bottomView.alpha = 0
         
         IHKeyboardAvoiding.setAvoidingView(currencyConvView)
+        
         //Set Master Data
         CellData.setGuestValues()
         CellData.setTipValues()
-        //hideKeyboardWhenTappedAround()
+        
         //Text Field Delegates
         numGuests.delegate = self
         tipPercent.delegate = self
@@ -107,7 +108,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let apiToContact = "http://apilayer.net/api/live"
         let parameter = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
-        // This code will call the iTunes top 25 movies endpoint listed above
+        
         Alamofire.request(.GET, apiToContact, parameters: parameter).validate().responseJSON() { response in
             switch response.result {
             case .Success:
@@ -123,7 +124,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                         let curr = Currency(name: key,rate:value.doubleValue)
                         self.allXRArray.append(curr)
                         self.pickOption.append(curr.name)
-                        print(" THIS IS THE \(allXR.count)")
+                        //print(" THIS IS THE \(allXR.count)")
                     }
                     
                 }
@@ -137,27 +138,50 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     
     
     func calculateResults() {
-        
         //resign first responder
         dismissKeyboard()
+        if basePickerTextField.text == "" || targetPickerTextField.text == ""{
+            //doesn't do anything and skips to convert the currency
+        } else {
+        guard let billamountToConvert = Optional(self.billAmount.text) else {
+            //show error
+            self.billAmount.text = ""
+            return
+        }
+        var baseCur = basePickerTextField.text ?? ""
+        var targetCur = targetPickerTextField.text ?? ""
         
+        let baseRateToUSD = 1/(self.findExchange(baseCur))
+        let USDTotargetRate = self.findExchange(targetCur)
+        let baseToTargetRate = baseRateToUSD * USDTotargetRate
+        
+        var  btrUSD: Double = Double(billamountToConvert!)!
+        var btt: Double = baseToTargetRate
+        var conv : String = String(format: "%.2f", (btt * btrUSD))
+        
+        self.billAmount.text = conv
+        }
         //calculate results only if key values are populated
         if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
             tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
             billAmount = Double(billAmount.text!){
             
+            
             TCHelperClass.billAmount = billAmount
             TCHelperClass.numGuests = numGuests
             TCHelperClass.tipPercent = tipPercent
+            
             
             totalTipToPay.text = String(format: "%.2f", TCHelperClass.getTotalTip())
             
             totalToPay.text =  String(format: "%.2f", billAmount + TCHelperClass.getTotalTip())
             
+            
             tipPerPerson.text = String(format: "%.2f", TCHelperClass.getPerPersonTip() )
             
             totalPerPerson.text = String(format: "%.2f", TCHelperClass.getPerPersonAmount() + TCHelperClass.getPerPersonTip())
             
+            //self.billAmount.text = ""
             
             //show the results if bottom view is hidden
             if self.bottomView.alpha == 0.0 {
@@ -185,6 +209,14 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         }
         
         
+    }
+    func findExchange(name: String)->Double{
+        for c in self.allXRArray{
+            if c.name == name{
+                return c.rate
+            }
+        }
+        return 0.0
     }
     
     
@@ -225,8 +257,13 @@ extension FirstViewController{
         } else if pickerView == basePickerView {
             
             return pickOption.count
+            
+        } else if pickerView == targetPickerView {
+            
+            return pickOption.count
         }
         else {
+            
             return CellData.tips.count
         }
         
@@ -238,13 +275,19 @@ extension FirstViewController{
             
             return CellData.guests[row]
             
-        } else if pickerView == basePickerView {
-            
-            return pickOption[row]
         }
-        else {
+        else if pickerView == tipPercentpickerView{
             
             return CellData.tips[row]
+        }
+        
+        else if pickerView == basePickerView {
+            
+            return pickOption[row]
+            
+        } else {
+            
+            return pickOption[row]
         }
     }
     
@@ -257,14 +300,18 @@ extension FirstViewController{
             
             numGuests.text = CellData.guests[row]
             
-        }
-        else {
+        } else if pickerView == tipPercentpickerView {
             
             tipPercent.text =  CellData.tips[row]
+            
         }
-        if pickerView.tag == 0{
+        
+        else if pickerView.tag == 0{
+            
             basePickerTextField.text = pickOption[row]
-        }else{
+            
+        } else if pickerView.tag == 1 {
+            
             targetPickerTextField.text = pickOption[row]
             
         }
@@ -274,9 +321,17 @@ extension FirstViewController{
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.purpleColor()
+        let color2 = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.redColor()
         
         if pickerView == numGuestpickerView{
             return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
+            
+        } else if pickerView == basePickerView {
+            return NSAttributedString(string: pickOption[row], attributes: [NSForegroundColorAttributeName: color2])
+            
+        } else if pickerView == targetPickerView {
+            return NSAttributedString(string: pickOption[row], attributes: [NSForegroundColorAttributeName: color2])
+            
         } else {
             return NSAttributedString(string: CellData.tips[row], attributes: [NSForegroundColorAttributeName: color])
         }
