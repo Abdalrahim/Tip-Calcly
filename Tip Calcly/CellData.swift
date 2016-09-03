@@ -70,11 +70,9 @@ struct CellData {
         tips = [String]()
         tip_to_num_converter = [String:Double]()
         
-        for counter in 1...TipValueCount {
-            
-            tips.append( "\(counter ) \(tipSymbol)")
-            tip_to_num_converter[tips[counter - 1]] = Double(counter)
-            
+        for counter in 0...TipValueCount {
+            tips.append( "\(counter ) \(tipSymbol) ")
+            tip_to_num_converter[tips[counter - 0]] = Double(counter)
         }
         
         

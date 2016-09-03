@@ -30,7 +30,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidAppear(animated: Bool) {
         Mixpanel.sharedInstance().track("UnEqual Share Opened")
         super.viewDidAppear(animated)
-        
+        IHKeyboardAvoiding.setAvoidingView(tableView)
         //Identify the active VC
         TCHelperClass.isFirstVC = false
     }

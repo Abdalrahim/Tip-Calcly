@@ -33,6 +33,11 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var targetPickerTextField: UITextField!
     
     @IBOutlet weak var currencyConvView: UIStackView!
+    @IBOutlet weak var convertedView: UIStackView!
+    @IBOutlet weak var connectionView: UIStackView!
+    
+    //conv is an empty string that could be used like the billamount to get converted to diff currency
+    var conv: String = ""
     
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
@@ -49,7 +54,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         TCHelperClass.isFirstVC = true
         
     }
@@ -61,12 +65,13 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        IHKeyboardAvoiding.setAvoidingView(currencyConvView)
         Mixpanel.sharedInstance().track("Equal Share Opened")
-        
         //initially hide Results
         bottomView.alpha = 0
+        convertedView.alpha = 0
+        connectionView.alpha = 0
         
+        internetConnection()
         //Set Master Data
         CellData.setGuestValues()
         CellData.setTipValues()
@@ -98,6 +103,8 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         
         // Done button on keyboard
         TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: billAmount)
+        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: basePickerTextField)
+
         
         //Tap gesture recognizer to dismiss Keyboard and Picker View
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -128,17 +135,17 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                     
                 }
             case .Failure(let error):
-                print(" THIS IS A HUGGEEEEE FAILLLL\(error)")
+                print(error)
             }
         }
         
     }
     
     
-    
     func calculateResults() {
         //resign first responder
         dismissKeyboard()
+        conv = billAmount.text!
         if basePickerTextField.text == "" || targetPickerTextField.text == ""{
             //doesn't do anything and skips to convert the currency
         } else {
@@ -151,24 +158,37 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                 //doesn't proceed if bill amount was empty
             }
             else {
-                var baseCur = basePickerTextField.text ?? ""
-                var targetCur = targetPickerTextField.text ?? ""
+                let baseCur = basePickerTextField.text ?? ""
+                let targetCur = targetPickerTextField.text ?? ""
                 
                 let baseRateToUSD = 1/(self.findExchange(baseCur))
                 let USDTotargetRate = self.findExchange(targetCur)
                 let baseToTargetRate = baseRateToUSD * USDTotargetRate
                 
-                var  btrUSD: Double = Double(billamountToConvert!)!
-                var btt: Double = baseToTargetRate
-                var conv : String = String(format: "%.2f", (btt * btrUSD))
+                let  btrUSD: Double = Double(billamountToConvert!)!
+                let btt: Double = baseToTargetRate
+                conv = String(format: "%.2f", (btt * btrUSD))
                 
-                self.billAmount.text = conv
+                //billAmount.text = conv
+                
+                if self.convertedView.alpha == 0.0 {
+                    UIView.animateWithDuration(3) {
+                        self.convertedView.alpha = 1.0
+                    }
+                }
+                if self.convertedView.alpha == 1.0 {
+                    UIView.animateWithDuration(2) {
+                        self.convertedView.alpha = 0.0
+                    }
+                }
+                
+                Mixpanel.sharedInstance().track("Currency Converted")
             }
         }
         //calculate results only if key values are populated
         if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
             tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
-            billAmount = Double(billAmount.text!){
+            billAmount = Double(conv){
             
             
             TCHelperClass.billAmount = billAmount
@@ -185,7 +205,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
             
             totalPerPerson.text = String(format: "%.2f", TCHelperClass.getPerPersonAmount() + TCHelperClass.getPerPersonTip())
             
-            //self.billAmount.text = ""
             
             //show the results if bottom view is hidden
             if self.bottomView.alpha == 0.0 {
@@ -222,6 +241,20 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         }
         return 0.0
     }
+    //checks if the device is connected
+    func internetConnection() {
+        if Reachability.isConnectedToNetwork() == false {
+            currencyConvView.alpha = 0.0
+            if connectionView.alpha == 0.0 {
+                connectionView.alpha = 1.0
+            }
+        }
+        else {
+            currencyConvView.alpha = 1.0
+            connectionView.alpha = 0.0
+        }
+        
+    }
     
     
 }
@@ -232,13 +265,13 @@ extension FirstViewController{
     func doneButtonAction()
     {
         billAmount.resignFirstResponder()
+        dismissKeyboard()
     }
     
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
     
 }
 
