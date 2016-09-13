@@ -28,7 +28,6 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var tipPercentpickerView:UIPickerView!
     
     override func viewDidAppear(animated: Bool) {
-        Mixpanel.sharedInstance().track("UnEqual Share Opened")
         super.viewDidAppear(animated)
         IHKeyboardAvoiding.setAvoidingView(tableView)
         //Identify the active VC
@@ -37,7 +36,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidLoad() {
         
-        
+        Mixpanel.sharedInstance().track("UnEqual Share Opened")
         super.viewDidLoad()
         IHKeyboardAvoiding.setAvoidingView(tableView)
         

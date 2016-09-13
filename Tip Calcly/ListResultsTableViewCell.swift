@@ -42,6 +42,7 @@ class ListResultsTableViewCell: UITableViewCell {
                 if myCellDetails.isCellLocked {
                     
                     rowIsLocked.setOn(true, animated: false)
+                    //totalAmount.backgroundColor = UIColor.redColor()
                     
                 } else {
                     
@@ -59,9 +60,17 @@ class ListResultsTableViewCell: UITableViewCell {
                     
                     TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: totalAmount)
                     
-                    //totalAmount.delegate = self
                     
                     
+                }
+                //Checks if the the split is negative and warns the user
+                if Double(totalAmount.text!) < 0{
+                    totalAmount.backgroundColor = UIColor.redColor()
+                    totalAmount.textColor = UIColor.whiteColor()
+                }
+                else if Double(totalAmount.text!) >= 0{
+                    totalAmount.backgroundColor = UIColor.whiteColor()
+                    totalAmount.textColor = UIColor.purpleColor()
                 }
             }
             
@@ -89,14 +98,10 @@ class ListResultsTableViewCell: UITableViewCell {
     func totalAmountDidChange(textField: UITextField) {
         
         if let changedAmountValue = Double(textField.text!) {
-            /*
-            if changedAmountValue < 0{
-                totalAmount.textColor = UIColor.redColor()
-            } */
+            
             // only if the new value is different from the old one
             if ( oldAmountValue != changedAmountValue) {
                 (myCellDetails!.perPersonTip,myCellDetails!.perPersonTotal) = TCHelperClass.recalcTipAndAmountValues(changedAmountValue)
-                
                 // trigger both the UI component and the cell value
                 // surely there is a better way to do this...
                 rowIsLocked.setOn(true, animated: true)
@@ -108,6 +113,7 @@ class ListResultsTableViewCell: UITableViewCell {
                 }
                 
                 oldAmountValue = changedAmountValue
+                
             }
         }
     }

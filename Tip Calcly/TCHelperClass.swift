@@ -31,7 +31,6 @@ class TCHelperClass {
             if isFirstVC == false {
                 setInitialCellValues()
             }
-            
         }
     }
     
