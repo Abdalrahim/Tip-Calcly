@@ -36,7 +36,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var convertedView: UIStackView!
     @IBOutlet weak var connectionView: UIStackView!
     
-    //conv is an empty string that could be used like the billamount to get converted to diff currency
+    //conv will be used as a billamount sender
     var conv: String = ""
     
     var numGuestpickerView:UIPickerView!
@@ -130,7 +130,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                         let curr = Currency(name: key,rate:value.doubleValue)
                         self.allXRArray.append(curr)
                         self.pickOption.append(curr.name)
-                        //print(" THIS IS THE \(allXR.count)")
                     }
                     
                 }
@@ -145,7 +144,10 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     func calculateResults() {
         //resign first responder
         dismissKeyboard()
+        
+        //sets conv as billamount to act as it
         conv = billAmount.text!
+        
         if basePickerTextField.text == "" || targetPickerTextField.text == ""{
             //doesn't do anything and skips to convert the currency
         } else {
