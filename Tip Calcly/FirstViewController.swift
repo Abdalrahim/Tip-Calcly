@@ -52,11 +52,12 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         calculateResults()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         TCHelperClass.isFirstVC = true
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,6 +73,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         connectionView.alpha = 0
         
         internetConnection()
+        
         //Set Master Data
         CellData.setGuestValues()
         CellData.setTipValues()
@@ -102,8 +104,8 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         tipPercent.inputView = tipPercentpickerView
         
         // Done button on keyboard
-        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: billAmount)
-        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: basePickerTextField)
+        TCHelperClass.addDoneButtonOnKeyboard(sendingVC: self, sendingTextFld: billAmount)
+        TCHelperClass.addDoneButtonOnKeyboard(sendingVC: self, sendingTextFld: basePickerTextField)
 
         
         //Tap gesture recognizer to dismiss Keyboard and Picker View
@@ -112,28 +114,27 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         
         //API
         
-        let apiToContact = "http://apilayer.net/api/live"
-        let parameter = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
+        let urlString = "http://apilayer.net/api/live?access_key=94217fdb9d33521f768f5803543f7c9b"
+        //let parameter: Parameters = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
         
-        Alamofire.request(.GET, apiToContact, parameters: parameter).validate().responseJSON() { response in
+        Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
             switch response.result {
-            case .Success:
+            case .success:
                 if let value = response.result.value {
                     let json = JSON(value)
                     
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     let allXR = json["quotes"].dictionaryValue
-                    //                    var allXRDict : [String:Double] = [:]
+                    //var allXRDict : [String:Double] = [:]
                     for (key,value) in allXR {
-                        //                        allXRDict[key] = value.doubleValue
+                        //allXRDict[key] = value.doubleValue
                         let curr = Currency(name: key,rate:value.doubleValue)
                         self.allXRArray.append(curr)
                         self.pickOption.append(curr.name)
                     }
-                    
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }
@@ -163,8 +164,8 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                 let baseCur = basePickerTextField.text ?? ""
                 let targetCur = targetPickerTextField.text ?? ""
                 
-                let baseRateToUSD = 1/(self.findExchange(baseCur))
-                let USDTotargetRate = self.findExchange(targetCur)
+                let baseRateToUSD = 1/(self.findExchange(name: baseCur))
+                let USDTotargetRate = self.findExchange(name: targetCur)
                 let baseToTargetRate = baseRateToUSD * USDTotargetRate
                 
                 let  btrUSD: Double = Double(billamountToConvert!)!
@@ -174,14 +175,14 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                 //billAmount.text = conv
                 
                 if self.convertedView.alpha == 0.0 {
-                    UIView.animateWithDuration(3) {
+                    UIView.animate(withDuration: 3, animations: {
                         self.convertedView.alpha = 1.0
-                    }
+                    }) 
                 }
                 if self.convertedView.alpha == 1.0 {
-                    UIView.animateWithDuration(2) {
+                    UIView.animate(withDuration: 2, animations: {
                         self.convertedView.alpha = 0.0
-                    }
+                    }) 
                 }
                 
                 Mixpanel.sharedInstance().track("Currency Converted")
@@ -189,8 +190,8 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         }
         //calculate results only if key values are populated
         if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
-            tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
-            billAmount = Double(conv){
+            let tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
+            let billAmount = Double(conv){
             
             
             TCHelperClass.billAmount = billAmount
@@ -210,9 +211,9 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
             
             //show the results if bottom view is hidden
             if self.bottomView.alpha == 0.0 {
-                UIView.animateWithDuration(CellData.animationDuration) {
+                UIView.animate(withDuration: CellData.animationDuration, animations: {
                     self.bottomView.alpha = 1.0
-                }
+                }) 
             }
             
         } else {
@@ -225,9 +226,9 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
             //hide the bottom view
             if self.bottomView.alpha == 1.0 {
                 
-                UIView.animateWithDuration(CellData.animationDuration) {
+                UIView.animate(withDuration: CellData.animationDuration, animations: {
                     self.bottomView.alpha = 0.0
-                }
+                }) 
                 
             }
             
@@ -280,14 +281,14 @@ extension FirstViewController{
 // MARK: Picker View logic
 extension FirstViewController{
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         //For example, if you wanted to do a picker for selecting time,
         //you might have 3 components; one for each of hour, minutes and seconds
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView == numGuestpickerView{
             
@@ -308,7 +309,7 @@ extension FirstViewController{
         
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == numGuestpickerView{
             
@@ -330,7 +331,7 @@ extension FirstViewController{
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         
         pickerView.reloadAllComponents()
@@ -357,10 +358,10 @@ extension FirstViewController{
         
     }
     
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.purpleColor()
-        let color2 = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.redColor()
+        let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.white : UIColor.purple
+        let color2 = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.white : UIColor.red
         
         if pickerView == numGuestpickerView{
             return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
@@ -390,12 +391,12 @@ extension FirstViewController {
             
             if textField == numGuests {
                 
-                numGuests.text = CellData.guests[numGuestpickerView.selectedRowInComponent(0)]
+                numGuests.text = CellData.guests[numGuestpickerView.selectedRow(inComponent: 0)]
                 
             }
             if textField == tipPercent {
                 
-                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRowInComponent(0)]
+                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRow(inComponent: 0)]
             }
         }
         

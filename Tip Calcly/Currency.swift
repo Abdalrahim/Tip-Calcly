@@ -7,16 +7,15 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct Currency {
     let name: String
     let rate: Double
     
     init(name: String, rate: Double) {
-        let index: String.Index = name.startIndex.advancedBy(3)
+        let index: String.Index = name.characters.index(name.startIndex, offsetBy: 3)
         
-        self.name = name.substringFromIndex(index)
+        self.name = name.substring(from: index)
         self.rate = rate
         
     }

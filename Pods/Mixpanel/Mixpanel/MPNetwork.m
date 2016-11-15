@@ -12,6 +12,8 @@
 #import "Mixpanel.h"
 #import <UIKit/UIKit.h>
 
+#define MIXPANEL_NO_NETWORK_ACTIVITY_INDICATOR (defined(MIXPANEL_APP_EXTENSION) || defined(MIXPANEL_TVOS_EXTENSION) || defined(MIXPANEL_WATCH_EXTENSION))
+
 static const NSUInteger kBatchSize = 50;
 
 @implementation MPNetwork
@@ -37,7 +39,7 @@ static const NSUInteger kBatchSize = 50;
 
 - (void)flushQueue:(NSMutableArray *)queue endpoint:(MPNetworkEndpoint)endpoint {
     if ([[NSDate date] timeIntervalSince1970] < self.requestsDisabledUntilTime) {
-        MPLogDebug(@"Attempted to flush to %@, when we still have a timeout. Ignoring flush.", endpoint);
+        MPLogDebug(@"Attempted to flush to %lu, when we still have a timeout. Ignoring flush.", endpoint);
         return;
     }
     
@@ -47,7 +49,7 @@ static const NSUInteger kBatchSize = 50;
         
         NSString *requestData = [MPNetwork encodeArrayForAPI:batch];
         NSString *postBody = [NSString stringWithFormat:@"ip=%d&data=%@", self.useIPAddressForGeoLocation, requestData];
-        MPLogDebug(@"%@ flushing %lu of %lu to %@: %@", self, (unsigned long)batch.count, (unsigned long)queue.count, endpoint, queue);
+        MPLogDebug(@"%@ flushing %lu of %lu to %lu: %@", self, (unsigned long)batch.count, (unsigned long)queue.count, endpoint, queue);
         NSURLRequest *request = [self buildPostRequestForEndpoint:endpoint andBody:postBody];
         
         [self updateNetworkActivityIndicator:YES];
@@ -68,7 +70,7 @@ static const NSUInteger kBatchSize = 50;
                 NSString *response = [[NSString alloc] initWithData:responseData
                                                            encoding:NSUTF8StringEncoding];
                 if ([response intValue] == 0) {
-                    MPLogInfo(@"%@ %@ api rejected some items", self, endpoint);
+                    MPLogInfo(@"%@ %lu api rejected some items", self, endpoint);
                 }
             }
             
@@ -167,9 +169,9 @@ static const NSUInteger kBatchSize = 50;
                            withQueryItems:(NSArray <NSURLQueryItem *> *)queryItems
                                   andBody:(NSString *)body {
     // Build URL from path and query items
-    NSURLComponents *components = [NSURLComponents componentsWithURL:self.serverURL
+    NSURL *urlWithEndpoint = [self.serverURL URLByAppendingPathComponent:endpoint];
+    NSURLComponents *components = [NSURLComponents componentsWithURL:urlWithEndpoint
                                              resolvingAgainstBaseURL:YES];
-    components.path = endpoint;
     components.queryItems = queryItems;
 
     // Build request from URL
@@ -278,7 +280,7 @@ static const NSUInteger kBatchSize = 50;
 }
 
 - (void)updateNetworkActivityIndicator:(BOOL)enabled {
-#if !MIXPANEL_LIMITED_SUPPORT
+#if !MIXPANEL_NO_NETWORK_ACTIVITY_INDICATOR
     if (self.shouldManageNetworkActivityIndicator) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = enabled;
     }

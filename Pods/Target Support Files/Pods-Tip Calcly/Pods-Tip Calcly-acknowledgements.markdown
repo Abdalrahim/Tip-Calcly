@@ -70,30 +70,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## Firebase
-
-Copyright 2016 Google
-
-## FirebaseAnalytics
-
-Copyright 2016 Google
-
-## FirebaseInstanceID
-
-Copyright 2016 Google
-
-## GoogleInterchangeUtilities
-
-Copyright 2015 Google Inc.
-
-## GoogleSymbolUtilities
-
-Copyright 2015 Google Inc.
-
-## GoogleUtilities
-
-Copyright 2015 Google Inc.
-
 ## IHKeyboardAvoiding
 
 The MIT License
@@ -385,7 +361,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Ruoyu Fu
+Copyright (c) 2016 Ruoyu Fu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

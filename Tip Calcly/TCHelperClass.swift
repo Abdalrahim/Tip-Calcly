@@ -49,7 +49,7 @@ class TCHelperClass {
     
     static func getTotalTip() -> Double{
         
-        if let billAmount = billAmount, tipPercent = tipPercent {
+        if let billAmount = billAmount, let tipPercent = tipPercent {
             return round( billAmount * tipPercent / 100 * 1000 ) / 1000
             
         }
@@ -70,7 +70,7 @@ class TCHelperClass {
     
     static func getPerPersonAmount() -> Double{
         
-        if let numGuests = numGuests, billAmount = billAmount {
+        if let numGuests = numGuests , let billAmount = billAmount {
             return round( billAmount / Double(numGuests) * 1000 ) / 1000
         }
         
@@ -80,7 +80,7 @@ class TCHelperClass {
     
     static func setInitialCellValues() -> Void {
         
-        if let _ = billAmount,numGuests = numGuests,_ = tipPercent{
+        if let _ = billAmount,let numGuests = numGuests,let _ = tipPercent{
             
             tcCellValues = [] // some redundancy will happen here
             
@@ -158,18 +158,18 @@ class TCHelperClass {
      * http://stackoverflow.com/questions/35689528/add-a-view-on-top-of-the-keyboard
      * using-inputaccessoryview-swift
      */
-    static func addDoneButtonOnKeyboard(sendingVC:AnyObject,sendingTextFld:UITextField)
-    {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        doneToolbar.barStyle = UIBarStyle.Default
+    static func addDoneButtonOnKeyboard(sendingVC:AnyObject,sendingTextFld:UITextField){
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.black
         
         doneToolbar.barTintColor = CellData.pickerBkgColor
         
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: sendingVC, action: #selector(doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: sendingVC, action: #selector(doneButtonAction))
         
-        done.tintColor = UIColor.whiteColor()
+        done.tintColor = UIColor.white
         
         var items = [UIBarButtonItem]()
         items.append(flexSpace)

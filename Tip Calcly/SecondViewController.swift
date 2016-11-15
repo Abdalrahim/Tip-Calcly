@@ -14,6 +14,7 @@ import Mixpanel
 class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource,TCTableViewCellProtocol,UITextFieldDelegate {
     
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var topVIew: UIStackView!
     
     @IBOutlet weak var numGuests: UITextField!
     @IBOutlet weak var tipPercent: UITextField!
@@ -24,21 +25,30 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func touchBegan(_ sender: Any) {
+        IHKeyboardAvoiding.setAvoiding(tableView)
+    }
+
+    @IBAction func touchEnd(_ sender: Any) {
+        IHKeyboardAvoiding.setAvoiding(topVIew)
+    }
+    
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        IHKeyboardAvoiding.setAvoidingView(tableView)
+        
+        
         //Identify the active VC
         TCHelperClass.isFirstVC = false
+        
     }
     
     override func viewDidLoad() {
         
         Mixpanel.sharedInstance().track("UnEqual Share Opened")
         super.viewDidLoad()
-        IHKeyboardAvoiding.setAvoidingView(tableView)
         
         //initially hide Results
         bottomView.alpha = 0
@@ -65,7 +75,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         tableView.dataSource = self
         
-        TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: billAmount)
+        TCHelperClass.addDoneButtonOnKeyboard(sendingVC: self, sendingTextFld: billAmount)
         
         //Tap gesture recognizer
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -85,8 +95,8 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         dismissKeyboard()
         
         if let numGuests = CellData.guest_to_num_converter[numGuests.text!],
-            tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
-            billAmount = Double(billAmount.text!){
+            let tipPercent = CellData.tip_to_num_converter[tipPercent.text!],
+            let billAmount = Double(billAmount.text!){
             
             TCHelperClass.billAmount = billAmount
             TCHelperClass.numGuests = numGuests
@@ -100,9 +110,9 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             //show the results
             if self.bottomView.alpha == 0.0 {
                 
-                UIView.animateWithDuration(CellData.animationDuration) {
+                UIView.animate(withDuration: CellData.animationDuration, animations: {
                     self.bottomView.alpha = 1.0
-                }
+                }) 
             }
             
         }else {
@@ -114,9 +124,9 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             //hide the bottom view
             if self.bottomView.alpha == 1.0 {
                 
-                UIView.animateWithDuration(CellData.animationDuration) {
+                UIView.animate(withDuration: CellData.animationDuration, animations: {
                     self.bottomView.alpha = 0.0
-                }
+                }) 
                 
             }
             
@@ -139,20 +149,20 @@ extension SecondViewController{
         tableView.reloadData()
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(notification: Notification) {
         
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        view.frame.origin.y -= getKeyboardHeight(notification: notification)
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(notification: Notification) {
         
-        view.frame.origin.y += getKeyboardHeight(notification)
+        view.frame.origin.y += getKeyboardHeight(notification: notification)
     }
     
-    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
+    func getKeyboardHeight(notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        return keyboardSize.CGRectValue().height
+        return keyboardSize.cgRectValue.height
     }
     
 }
@@ -177,7 +187,7 @@ extension SecondViewController{
 // MARK: Table View Data Source functions
 extension SecondViewController{
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let helperArray = TCHelperClass.tcCellValues {
             
@@ -186,13 +196,14 @@ extension SecondViewController{
         
         return 0
     }
+
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellData.cellIdentifier) as! ListResultsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellData.cellIdentifier) as! ListResultsTableViewCell
         
-        cell.myCellDetails = TCHelperClass.tcCellValues![indexPath.row]
-        cell.personLabel.text = "Guest \(indexPath.row + 1)"
+        cell.myCellDetails = TCHelperClass.tcCellValues![(indexPath as NSIndexPath).row]
+        cell.personLabel.text = "Guest \((indexPath as NSIndexPath).row + 1)"
         
         cell.delegate = self
         
@@ -205,14 +216,14 @@ extension SecondViewController{
 // MARK: Picker View functions
 extension SecondViewController{
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         //For example, if you wanted to do a picker for selecting time,
         //you might have 3 components; one for each of hour, minutes and seconds
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView == numGuestpickerView{
             
@@ -225,7 +236,7 @@ extension SecondViewController{
         
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == numGuestpickerView{
             
@@ -237,7 +248,7 @@ extension SecondViewController{
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         pickerView.reloadAllComponents()
         
@@ -253,9 +264,9 @@ extension SecondViewController{
         
     }
     
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        let color = (row == pickerView.selectedRowInComponent(component)) ? UIColor.whiteColor() : UIColor.purpleColor()
+        let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.white : UIColor.purple
         
         if pickerView == numGuestpickerView{
             return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
@@ -275,12 +286,12 @@ extension SecondViewController {
             
             if textField == numGuests {
                 
-                numGuests.text = CellData.guests[numGuestpickerView.selectedRowInComponent(0)]
+                numGuests.text = CellData.guests[numGuestpickerView.selectedRow(inComponent: 0)]
                 
             }
             if textField == tipPercent {
                 
-                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRowInComponent(0)]
+                tipPercent .text = CellData.tips[tipPercentpickerView.selectedRow(inComponent: 0)]
             }
         }
         

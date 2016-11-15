@@ -1,55 +1,31 @@
 PODS:
-  - Alamofire (3.4.1)
-  - AlamofireImage (2.4.1):
-    - Alamofire (~> 3.3)
-  - AlamofireNetworkActivityIndicator (1.0.1):
-    - Alamofire (~> 3.3)
-  - Firebase (3.5.1):
-    - Firebase/Core (= 3.5.1)
-  - Firebase/Analytics (3.5.1):
-    - FirebaseAnalytics (~> 3.3.1)
-  - Firebase/Core (3.5.1):
-    - Firebase/Analytics
-  - FirebaseAnalytics (3.3.1):
-    - FirebaseInstanceID (~> 1.0)
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseInstanceID (1.0.8)
-  - GoogleInterchangeUtilities (1.2.1):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.1.1)
-  - GoogleUtilities (1.3.1):
-    - GoogleSymbolUtilities (~> 1.0)
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.1.0):
+    - Alamofire (~> 4.0)
+  - AlamofireNetworkActivityIndicator (2.0.1):
+    - Alamofire (~> 4.0)
   - IHKeyboardAvoiding (2.6)
-  - Mixpanel (3.0.2):
-    - Mixpanel/Mixpanel (= 3.0.2)
-  - Mixpanel/Mixpanel (3.0.2)
-  - SwiftyJSON (2.3.2)
+  - Mixpanel (3.0.5):
+    - Mixpanel/Mixpanel (= 3.0.5)
+  - Mixpanel/Mixpanel (3.0.5)
+  - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - AlamofireNetworkActivityIndicator
-  - Firebase
   - IHKeyboardAvoiding
   - Mixpanel
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
-  AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
-  Firebase: 9b3edeffaf60d56e377dc5281e91c4ba935a5ad9
-  FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
-  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
-  GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
-  GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
+  AlamofireNetworkActivityIndicator: 3e55069ada3e1ff7703665156429eedcdfea0bc1
   IHKeyboardAvoiding: d2541ee56dad83e160cd9aed0468c52247af6f49
-  Mixpanel: 0e4f1f9a2ac612b589b2894830038418c2587428
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Mixpanel: ad5ec38855baa42af0de52052466ab36ee240b87
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: c35975a43784500ccb9c9f6eb1b7079517017c95
+PODFILE CHECKSUM: 70238c0f63c2828cf1d623db85fd128f1bd0ae9d
 
 COCOAPODS: 1.0.1

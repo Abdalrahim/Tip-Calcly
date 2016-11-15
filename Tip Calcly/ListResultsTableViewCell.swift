@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import IHKeyboardAvoiding
+
 
 protocol TCTableViewCellProtocol:class  {
     
     func calcAndReload() -> Void
-    func keyboardWillShow(notification: NSNotification) -> Void
-    func keyboardWillHide(notification: NSNotification) -> Void
+    func keyboardWillShow(notification: Notification) -> Void
+    func keyboardWillHide(notification: Notification) -> Void
 }
 
 
@@ -27,13 +29,12 @@ class ListResultsTableViewCell: UITableViewCell {
     weak var delegate:TCTableViewCellProtocol?
     var oldAmountValue:Double!
     
+    
     var myCellDetails:CellValues? {
         
         didSet{
             
-            
             if let myCellDetails = myCellDetails{
-                
                 self.amount.text = String(format: "%.2f", myCellDetails.perPersonTotal)
                 self.tipAmount.text = String(format: "%.2f", myCellDetails.perPersonTip)
                 self.totalAmount.text = String(format: "%.2f", myCellDetails.perPersonTip + myCellDetails.perPersonTotal)
@@ -46,7 +47,7 @@ class ListResultsTableViewCell: UITableViewCell {
                     
                 } else {
                     
-                    if rowIsLocked.on{
+                    if rowIsLocked.isOn{
                         
                         rowIsLocked.setOn(false, animated: false)
                         
@@ -56,21 +57,21 @@ class ListResultsTableViewCell: UITableViewCell {
                 if oldValue == nil {
                     
                     //assumption that this will be triggered the first time only
-                    totalAmount.addTarget(self, action: #selector(totalAmountDidChange(_:)), forControlEvents: UIControlEvents.EditingDidEnd)
+                    totalAmount.addTarget(self, action: #selector(totalAmountDidChange(textField:)), for: UIControlEvents.editingDidEnd)
                     
-                    TCHelperClass.addDoneButtonOnKeyboard(self, sendingTextFld: totalAmount)
+                    TCHelperClass.addDoneButtonOnKeyboard(sendingVC: self, sendingTextFld: totalAmount)
                     
                     
                     
                 }
                 //Checks if the the split is negative and warns the user
-                if Double(totalAmount.text!) < 0{
-                    totalAmount.backgroundColor = UIColor.redColor()
-                    totalAmount.textColor = UIColor.whiteColor()
+                if Double(totalAmount.text!)! < 0{
+                    totalAmount.backgroundColor = UIColor.red
+                    totalAmount.textColor = UIColor.white
                 }
-                else if Double(totalAmount.text!) >= 0{
-                    totalAmount.backgroundColor = UIColor.whiteColor()
-                    totalAmount.textColor = UIColor.purpleColor()
+                else if Double(totalAmount.text!)! >= 0{
+                    totalAmount.backgroundColor = UIColor.white
+                    totalAmount.textColor = UIColor.purple
                 }
             }
             
@@ -84,7 +85,7 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBAction func sliderDidChange(sender: AnyObject) {
         
         
-        if rowIsLocked.on {
+        if rowIsLocked.isOn {
             
             myCellDetails?.isCellLocked = true
         }
@@ -101,7 +102,7 @@ class ListResultsTableViewCell: UITableViewCell {
             
             // only if the new value is different from the old one
             if ( oldAmountValue != changedAmountValue) {
-                (myCellDetails!.perPersonTip,myCellDetails!.perPersonTotal) = TCHelperClass.recalcTipAndAmountValues(changedAmountValue)
+                (myCellDetails!.perPersonTip,myCellDetails!.perPersonTotal) = TCHelperClass.recalcTipAndAmountValues(totalAmount: changedAmountValue)
                 // trigger both the UI component and the cell value
                 // surely there is a better way to do this...
                 rowIsLocked.setOn(true, animated: true)
