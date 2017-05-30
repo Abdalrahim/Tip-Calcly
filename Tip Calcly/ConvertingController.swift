@@ -92,7 +92,6 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         
         let urlString = "http://apilayer.net/api/live?access_key=94217fdb9d33521f768f5803543f7c9b"
-        //let parameter: Parameters = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
         
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
             switch response.result {
@@ -103,9 +102,9 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     let allXR = json["quotes"].dictionaryValue
-                    //var allXRDict : [String:Double] = [:]
+                    
                     for (key,value) in allXR {
-                        //allXRDict[key] = value.doubleValue
+                        
                         let curr = Currency(name: key,rate:value.doubleValue)
                         
                         self.allXRArray.append(curr)
@@ -149,28 +148,6 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         
-        //pickerView.reloadAllComponents()
-        
-//        if pickerView == numGuestpickerView{
-//            
-//            numGuests.text = CellData.guests[row]
-//            
-//        } else if pickerView == tipPercentpickerView {
-//            
-//            tipPercent.text =  CellData.tips[row]
-//            
-//        }
-//            
-//        else if pickerView.tag == 0{
-//            
-//            basePickerTextField.text = pickOption[row]
-//            
-//        } else if pickerView.tag == 1 {
-//            
-//            targetPickerTextField.text = pickOption[row]
-//            
-//        }
-        
         if pickerView == from {
             fromText.text! = pickOption[row]
             fromCurrency = pickOption[row]
@@ -187,7 +164,6 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.purple : UIColor.purple
-        //let color2 = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.white : UIColor.red
         
         return NSAttributedString(string: pickOption[row], attributes: [NSForegroundColorAttributeName: color])
     }

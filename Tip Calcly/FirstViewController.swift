@@ -205,7 +205,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         //API
         
         let urlString = "http://apilayer.net/api/live?access_key=94217fdb9d33521f768f5803543f7c9b"
-        //let parameter: Parameters = ["access_key": "94217fdb9d33521f768f5803543f7c9b", "currencies":""]
         
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
             switch response.result {
@@ -216,9 +215,9 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     let allXR = json["quotes"].dictionaryValue
-                    //var allXRDict : [String:Double] = [:]
+                    
                     for (key,value) in allXR {
-                        //allXRDict[key] = value.doubleValue
+                        
                         let curr = Currency(name: key,rate:value.doubleValue)
                         
                         self.allXRArray.append(curr)
