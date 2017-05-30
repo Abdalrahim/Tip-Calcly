@@ -17,8 +17,6 @@ protocol TCTableViewCellProtocol:class  {
     func keyboardWillHide(notification: Notification) -> Void
 }
 
-
-
 class ListResultsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var personLabel: UILabel!
@@ -28,7 +26,6 @@ class ListResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var rowIsLocked: UISwitch!
     weak var delegate:TCTableViewCellProtocol?
     var oldAmountValue:Double!
-    
     
     var myCellDetails:CellValues? {
         
@@ -43,6 +40,8 @@ class ListResultsTableViewCell: UITableViewCell {
                 if myCellDetails.isCellLocked {
                     
                     rowIsLocked.setOn(true, animated: false)
+                    rowIsLocked.onImage = #imageLiteral(resourceName: "Lock")
+                    rowIsLocked.offImage = #imageLiteral(resourceName: "Unlock")
                     //totalAmount.backgroundColor = UIColor.redColor()
                     
                 } else {
@@ -78,12 +77,16 @@ class ListResultsTableViewCell: UITableViewCell {
         }
         
     }
+    
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         
     }
     
     @IBAction func sliderDidChange(sender: AnyObject) {
         
+        rowIsLocked.onImage = #imageLiteral(resourceName: "Lock")
+        rowIsLocked.offImage = #imageLiteral(resourceName: "Unlock")
         
         if rowIsLocked.isOn {
             
@@ -94,6 +97,27 @@ class ListResultsTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func change(_ sender: Any) {
+        if let changedAmountValue = Double(totalAmount.text!) {
+            
+            // only if the new value is different from the old one
+            if ( oldAmountValue != changedAmountValue) {
+                (myCellDetails!.perPersonTip,myCellDetails!.perPersonTotal) = TCHelperClass.recalcTipAndAmountValues(totalAmount: changedAmountValue)
+                // trigger both the UI component and the cell value
+                // surely there is a better way to do this...
+                rowIsLocked.setOn(true, animated: true)
+                myCellDetails?.isCellLocked = true
+                
+                if let delegate = delegate {
+                    
+                    delegate.calcAndReload()
+                }
+                
+                oldAmountValue = changedAmountValue
+                
+            }
+        }
+    }
     
     
     func totalAmountDidChange(textField: UITextField) {

@@ -10,20 +10,35 @@
 #import "MPNetworkPrivate.h"
 #import "MPLogger.h"
 #import "Mixpanel.h"
+#if !TARGET_OS_OSX
 #import <UIKit/UIKit.h>
+#endif
 
-#define MIXPANEL_NO_NETWORK_ACTIVITY_INDICATOR (defined(MIXPANEL_APP_EXTENSION) || defined(MIXPANEL_TVOS_EXTENSION) || defined(MIXPANEL_WATCH_EXTENSION))
+#define MIXPANEL_NO_NETWORK_ACTIVITY_INDICATOR (defined(MIXPANEL_APP_EXTENSION) || defined(MIXPANEL_TVOS) || defined(MIXPANEL_WATCHOS) || defined(MIXPANEL_MACOS))
 
 static const NSUInteger kBatchSize = 50;
 
 @implementation MPNetwork
 
-- (instancetype)initWithServerURL:(NSURL *)serverURL {
++ (NSURLSession *)sharedURLSession {
+    static NSURLSession *sharedSession = nil;
+    @synchronized(self) {
+        if (sharedSession == nil) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+            sessionConfig.timeoutIntervalForRequest = 7.0;
+            sharedSession = [NSURLSession sessionWithConfiguration:sessionConfig];
+        }
+    }
+    return sharedSession;
+}
+
+- (instancetype)initWithServerURL:(NSURL *)serverURL mixpanel:(Mixpanel *)mixpanel {
     self = [super init];
     if (self) {
         self.serverURL = serverURL;
         self.shouldManageNetworkActivityIndicator = YES;
         self.useIPAddressForGeoLocation = YES;
+        self.mixpanel = mixpanel;
     }
     return self;
 }
@@ -42,22 +57,28 @@ static const NSUInteger kBatchSize = 50;
         MPLogDebug(@"Attempted to flush to %lu, when we still have a timeout. Ignoring flush.", endpoint);
         return;
     }
+
+    NSMutableArray *queueCopyForFlushing;
+
+    Mixpanel *mixpanel = self.mixpanel;
+    @synchronized (mixpanel) {
+        queueCopyForFlushing = [queue mutableCopy];
+    }
     
-    while (queue.count > 0) {
-        NSUInteger batchSize = MIN(queue.count, kBatchSize);
-        NSArray *batch = [queue subarrayWithRange:NSMakeRange(0, batchSize)];
+    while (queueCopyForFlushing.count > 0) {
+        NSUInteger batchSize = MIN(queueCopyForFlushing.count, kBatchSize);
+        NSArray *batch = [queueCopyForFlushing subarrayWithRange:NSMakeRange(0, batchSize)];
         
         NSString *requestData = [MPNetwork encodeArrayForAPI:batch];
         NSString *postBody = [NSString stringWithFormat:@"ip=%d&data=%@", self.useIPAddressForGeoLocation, requestData];
-        MPLogDebug(@"%@ flushing %lu of %lu to %lu: %@", self, (unsigned long)batch.count, (unsigned long)queue.count, endpoint, queue);
+        MPLogDebug(@"%@ flushing %lu of %lu to %lu: %@", self, (unsigned long)batch.count, (unsigned long)queue.count, endpoint, queueCopyForFlushing);
         NSURLRequest *request = [self buildPostRequestForEndpoint:endpoint andBody:postBody];
         
         [self updateNetworkActivityIndicator:YES];
         
         __block BOOL didFail = NO;
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithRequest:request completionHandler:^(NSData *responseData,
+        [[[MPNetwork sharedURLSession] dataTaskWithRequest:request completionHandler:^(NSData *responseData,
                                                                   NSURLResponse *urlResponse,
                                                                   NSError *error) {
             [self updateNetworkActivityIndicator:NO];
@@ -82,8 +103,11 @@ static const NSUInteger kBatchSize = 50;
         if (didFail) {
             break;
         }
-        
-        [queue removeObjectsInArray:batch];
+
+        @synchronized (mixpanel) {
+            [queueCopyForFlushing removeObjectsInArray:batch];
+            [queue removeObjectsInArray:batch];
+        }
     }
 }
 
@@ -124,7 +148,7 @@ static const NSUInteger kBatchSize = 50;
     NSURLQueryItem *itemLib = [NSURLQueryItem queryItemWithName:@"lib" value:@"iphone"];
     NSURLQueryItem *itemToken = [NSURLQueryItem queryItemWithName:@"token" value:token];
     NSURLQueryItem *itemDistinctID = [NSURLQueryItem queryItemWithName:@"distinct_id" value:distinctID];
-    
+
     // Convert properties dictionary to a string
     NSData *propertiesData = [NSJSONSerialization dataWithJSONObject:properties
                                                              options:0
@@ -172,7 +196,12 @@ static const NSUInteger kBatchSize = 50;
     NSURL *urlWithEndpoint = [self.serverURL URLByAppendingPathComponent:endpoint];
     NSURLComponents *components = [NSURLComponents componentsWithURL:urlWithEndpoint
                                              resolvingAgainstBaseURL:YES];
-    components.queryItems = queryItems;
+    if (queryItems) {
+        components.queryItems = queryItems;
+    }
+
+    // NSURLComponents/NSURLQueryItem doesn't encode + as %2B, and then the + is interpreted as a space on servers
+    components.percentEncodedQuery = [components.percentEncodedQuery stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
 
     // Build request from URL
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];

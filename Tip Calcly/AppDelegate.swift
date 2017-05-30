@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FIRApp.configure()
         let token = "6a0c163e5302aaf7cd678b300f88320d"
         Mixpanel.sharedInstance(withToken: token)
-        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()!
         mixpanel.track("App Launched")
         return true
     }

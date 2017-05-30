@@ -1,4 +1,14 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
 
 #import "AutomaticEventsConstants.h"
 #import "Mixpanel+AutomaticEvents.h"
@@ -26,8 +36,10 @@
 #import "MPEnumDescription.h"
 #import "MPEventBinding.h"
 #import "MPFoundation.h"
+#import "MPMiniNotification.h"
 #import "MPNetwork.h"
 #import "MPNotification.h"
+#import "MPNotificationButton.h"
 #import "MPNotificationViewController.h"
 #import "MPObjectIdentifierProvider.h"
 #import "MPObjectIdentityProvider.h"
@@ -38,12 +50,9 @@
 #import "MPPropertyDescription.h"
 #import "MPResources.h"
 #import "MPSequenceGenerator.h"
-#import "MPSurvey.h"
-#import "MPSurveyNavigationController.h"
-#import "MPSurveyQuestion.h"
-#import "MPSurveyQuestionViewController.h"
 #import "MPSwizzle.h"
 #import "MPSwizzler.h"
+#import "MPTakeoverNotification.h"
 #import "MPTweak.h"
 #import "MPTweakInline.h"
 #import "MPTweakInlineInternal.h"

@@ -9,9 +9,7 @@
 #import "Mixpanel.h"
 #import "MPNetwork.h"
 
-#if !MIXPANEL_NO_EXCEPTION_HANDLING
 #import "MixpanelExceptionHandler.h"
-#endif
 
 #if TARGET_OS_IPHONE
 #if !MIXPANEL_NO_REACHABILITY_SUPPORT
@@ -26,7 +24,7 @@
 #endif
 #endif
 
-#if !MIXPANEL_NO_SURVEY_NOTIFICATION_AB_TEST_SUPPORT
+#if !MIXPANEL_NO_NOTIFICATION_AB_TEST_SUPPORT
 #import "MPResources.h"
 #import "MPABTestDesignerConnection.h"
 #import "UIView+MPHelpers.h"
@@ -34,15 +32,17 @@
 #import "MPDesignerSessionCollection.h"
 #import "MPEventBinding.h"
 #import "MPNotification.h"
+#import "MPTakeoverNotification.h"
+#import "MPMiniNotification.h"
 #import "MPNotificationViewController.h"
-#import "MPSurveyNavigationController.h"
 #import "MPSwizzler.h"
+#import "MPTweakStore.h"
 #import "MPVariant.h"
 #import "MPWebSocket.h"
 #endif
 
-#if !MIXPANEL_NO_SURVEY_NOTIFICATION_AB_TEST_SUPPORT
-@interface Mixpanel () <MPSurveyNavigationControllerDelegate, MPNotificationViewControllerDelegate>
+#if !MIXPANEL_NO_NOTIFICATION_AB_TEST_SUPPORT
+@interface Mixpanel () <MPNotificationViewControllerDelegate>
 #else
 @interface Mixpanel ()
 #endif
@@ -56,7 +56,7 @@
 @property (nonatomic, strong) CTTelephonyNetworkInfo *telephonyInfo;
 #endif
 
-#if !MIXPANEL_NO_SURVEY_NOTIFICATION_AB_TEST_SUPPORT
+#if !MIXPANEL_NO_NOTIFICATION_AB_TEST_SUPPORT
 @property (nonatomic, strong) UILongPressGestureRecognizer *testDesignerGestureRecognizer;
 @property (nonatomic, strong) MPABTestDesignerConnection *abtestDesignerConnection;
 #endif
@@ -67,7 +67,7 @@
 @property (nonatomic, getter=isValidationEnabled) BOOL validationEnabled;
 #endif
 
-#if !defined(MIXPANEL_WATCH_EXTENSION)
+#if !defined(MIXPANEL_WATCHOS) && !defined(MIXPANEL_MACOS)
 @property (nonatomic, assign) UIBackgroundTaskIdentifier taskId;
 @property (nonatomic, strong) UIViewController *notificationViewController;
 #endif
@@ -76,6 +76,7 @@
 @property (atomic, strong) MixpanelPeople *people;
 @property (atomic, strong) MPNetwork *network;
 @property (atomic, copy) NSString *distinctId;
+@property (atomic, copy) NSString *alias;
 
 @property (nonatomic, copy) NSString *apiToken;
 @property (atomic, strong) NSDictionary *superProperties;
@@ -84,12 +85,10 @@
 @property (nonatomic, strong) NSMutableArray *eventsQueue;
 @property (nonatomic, strong) NSMutableArray *peopleQueue;
 @property (nonatomic) dispatch_queue_t serialQueue;
+@property (nonatomic) dispatch_queue_t networkQueue;
 @property (nonatomic, strong) NSMutableDictionary *timedEvents;
 
 @property (nonatomic) BOOL decideResponseCached;
-@property (nonatomic, strong) NSArray *surveys;
-@property (nonatomic, strong) id currentlyShowingSurvey;
-@property (nonatomic, strong) NSMutableSet *shownSurveyCollections;
 
 @property (nonatomic, strong) NSArray *notifications;
 @property (nonatomic, strong) id currentlyShowingNotification;
@@ -112,12 +111,11 @@
 - (NSString *)peopleFilePath;
 - (NSString *)propertiesFilePath;
 
-#if !MIXPANEL_NO_SURVEY_NOTIFICATION_AB_TEST_SUPPORT
-- (void)presentSurveyWithRootViewController:(MPSurvey *)survey;
+#if !MIXPANEL_NO_NOTIFICATION_AB_TEST_SUPPORT
 - (void)showNotificationWithObject:(MPNotification *)notification;
 - (void)markVariantRun:(MPVariant *)variant;
-- (void)checkForDecideResponseWithCompletion:(void (^)(NSArray *surveys, NSArray *notifications, NSSet *variants, NSSet *eventBindings))completion;
-- (void)checkForDecideResponseWithCompletion:(void (^)(NSArray *surveys, NSArray *notifications, NSSet *variants, NSSet *eventBindings))completion useCache:(BOOL)useCache;
+- (void)checkForDecideResponseWithCompletion:(void (^)(NSArray *notifications, NSSet *variants, NSSet *eventBindings))completion;
+- (void)checkForDecideResponseWithCompletion:(void (^)(NSArray *notifications, NSSet *variants, NSSet *eventBindings))completion useCache:(BOOL)useCache;
 #endif
 
 @end

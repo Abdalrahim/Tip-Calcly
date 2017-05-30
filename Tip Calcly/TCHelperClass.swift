@@ -161,10 +161,14 @@ class TCHelperClass {
     static func addDoneButtonOnKeyboard(sendingVC:AnyObject,sendingTextFld:UITextField){
         
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        doneToolbar.barStyle = UIBarStyle.black
+        doneToolbar.barStyle = UIBarStyle.default
         
-        doneToolbar.barTintColor = CellData.pickerBkgColor
+        let color = UIColor.purple
         
+        doneToolbar.barTintColor = color
+        doneToolbar.backgroundColor = color
+        
+        //doneToolbar.barTintColor = UIColor.init(red: 143.0, green: 40.0, blue: 225.0, alpha: 1)
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: sendingVC, action: #selector(doneButtonAction))

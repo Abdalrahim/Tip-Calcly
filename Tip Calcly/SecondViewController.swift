@@ -26,11 +26,11 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func touchBegan(_ sender: Any) {
-        IHKeyboardAvoiding.setAvoiding(tableView)
+        //IHKeyboardAvoiding.setAvoiding(tableView)
     }
 
     @IBAction func touchEnd(_ sender: Any) {
-        IHKeyboardAvoiding.setAvoiding(topVIew)
+        //IHKeyboardAvoiding.setAvoiding(topVIew)
     }
     
     var numGuestpickerView:UIPickerView!
@@ -47,7 +47,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidLoad() {
         
-        Mixpanel.sharedInstance().track("UnEqual Share Opened")
+        Mixpanel.sharedInstance()?.track("UnEqual Share Opened")
         super.viewDidLoad()
         
         //initially hide Results
@@ -86,7 +86,7 @@ class SecondViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func doCalculate(sender: AnyObject) {
         
         calculateResults()
-        Mixpanel.sharedInstance().track("UnEqual Calculated")
+        Mixpanel.sharedInstance()?.track("UnEqual Calculated")
     }
     
     func calculateResults() {
@@ -266,7 +266,7 @@ extension SecondViewController{
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.white : UIColor.purple
+        let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.red : UIColor.purple
         
         if pickerView == numGuestpickerView{
             return NSAttributedString(string: CellData.guests[row], attributes: [NSForegroundColorAttributeName: color])
