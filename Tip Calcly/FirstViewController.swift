@@ -65,14 +65,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     var numGuestpickerView:UIPickerView!
     var tipPercentpickerView:UIPickerView!
     
-    var basePickerView = UIPickerView()
-    var targetPickerView = UIPickerView()
-    
-    
-    var pickOption: [String] = []
-    var allXRArray :[Currency] = []
-    
-    
     //setting the converters
     static var someConv = ""
     static var someConv2 = ""
@@ -175,12 +167,6 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         numGuestpickerView.delegate = self
         numGuestpickerView.backgroundColor = CellData.pickerBkgColor
         
-        self.basePickerView.delegate = self
-        self.targetPickerView.delegate = self
-        
-        self.basePickerView.tag = 0
-        self.targetPickerView.tag = 1
-        
         tipPercentpickerView = UIPickerView()
         tipPercentpickerView.delegate = self
         tipPercentpickerView.backgroundColor = CellData.pickerBkgColor
@@ -202,7 +188,11 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        //API
+        API()
+    }
+    
+    //Get converter values
+    func API() {
         
         let urlString = "http://apilayer.net/api/live?access_key=94217fdb9d33521f768f5803543f7c9b"
         
@@ -220,9 +210,9 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
                         
                         let curr = Currency(name: key,rate:value.doubleValue)
                         
-                        self.allXRArray.append(curr)
-                        self.pickOption.append(curr.name)
-                        self.pickOption.sort()
+                        ConvertingController.allXRArray.append(curr)
+                        ConvertingController.pickOption.append(curr.name)
+                        ConvertingController.pickOption.sort()
                     }
                 }
             case .failure(let error):
@@ -308,7 +298,7 @@ class FirstViewController:  UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func findExchange(name: String)->Double{
-        for c in self.allXRArray{
+        for c in ConvertingController.allXRArray{
             if c.name == name{
                 return c.rate
             }

@@ -75,8 +75,8 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    var pickOption: [String] = []
-    var allXRArray :[Currency] = []
+    static var pickOption: [String] = []
+    static var allXRArray :[Currency] = []
     var fromCurrency = ""
     var toCurrency = ""
     
@@ -90,41 +90,6 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         convertButton.layer.cornerRadius = 10
         
-        
-        let urlString = "http://apilayer.net/api/live?access_key=94217fdb9d33521f768f5803543f7c9b"
-        
-        Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
-            switch response.result {
-            case .success:
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    
-                    // Do what you need to with JSON here!
-                    // The rest is all boiler plate code you'll use for API requests
-                    let allXR = json["quotes"].dictionaryValue
-                    
-                    for (key,value) in allXR {
-                        
-                        let curr = Currency(name: key,rate:value.doubleValue)
-                        
-                        self.allXRArray.append(curr)
-                        self.pickOption.append(curr.name)
-                        self.pickOption.sort()
-                        
-                        self.from.reloadAllComponents()
-                        self.to.reloadAllComponents()
-                        
-                        self.from.reloadInputViews()
-                        self.to.reloadInputViews()
-                        
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-            
-            
-        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -136,26 +101,26 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return pickOption.count
+        return ConvertingController.pickOption.count
         
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return pickOption[row]
+        return ConvertingController.pickOption[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         
         if pickerView == from {
-            fromText.text! = pickOption[row]
-            fromCurrency = pickOption[row]
+            fromText.text! = ConvertingController.pickOption[row]
+            fromCurrency = ConvertingController.pickOption[row]
         }
         
         if pickerView == to {
-            toText.text! = pickOption[row]
-            toCurrency = pickOption[row]
+            toText.text! = ConvertingController.pickOption[row]
+            toCurrency = ConvertingController.pickOption[row]
         }
         
         
@@ -165,7 +130,7 @@ class ConvertingController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let color = (row == pickerView.selectedRow(inComponent: component)) ? UIColor.purple : UIColor.purple
         
-        return NSAttributedString(string: pickOption[row], attributes: [NSForegroundColorAttributeName: color])
+        return NSAttributedString(string: ConvertingController.pickOption[row], attributes: [NSForegroundColorAttributeName: color])
     }
 }
 
